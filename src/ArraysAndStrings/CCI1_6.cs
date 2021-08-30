@@ -1,36 +1,13 @@
-// Реализуйте алгоритм, определяющий, все ли символы в строке встречаются
-// только один раз. А если при этом запрещено использование дополнительных
-// структур данных?
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-using System;
-
-namespace src
+namespace ArraysAndStrings
 {
-    public class ArraysAndStrings
+    public class CCI1_6
     {
-        // 1.1 Реализуйте алгоритм, определяющий, все ли символы в строке встречаются
-        // только один раз. А если при этом запрещено использование дополнительных
-        // структур данных?
-        public static bool CheckString(string input)
-        {
-            if (input.Length > 0)
-            {
-                string buffer = input[0].ToString();
-                for (int i = 1; i < input.Length; i++)
-                {
-                    for (int j = 0; j < buffer.Length; j++)
-                    {
-                        if (input[i] == buffer[j])
-                        {
-                            return false;
-                        }
-                    }
-                    buffer += input[i];
-                }
-            }
-            return true;
-        }
-
         //1.6 Реализуйте метод для выполнения простейшего сжатия строк с использованием счетчика повторяющихся символов. Например, строка ааЬсссссааа превращается в а2Ыс5аЗ. Если ~сжатая» строка не становится короче исходной,
         //то метод возвращает исходную строку.Предполагается, что строка состоит
         //только из букв верхнего и нижнего регистра(a-z).
@@ -43,10 +20,11 @@ namespace src
             int count = 1;
             for (int i = 1; i < input.Length; i++)
             {
-                if (output[output.Length-1] == input[i])
+                if (output[output.Length - 1] == input[i])
                 {
                     count++;
-                } else
+                }
+                else
                 {
                     output += count.ToString();
                     output += input[i];

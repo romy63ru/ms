@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace src
+namespace Lists
 {
-    public class Lists
+    public class CCI2_1
     {
 
         //2.1 Remove Dups! Write code to remove duplicates from an unsorted linked list.
-        public LinkedList<int> RemoveDuplicates2and1(LinkedList<int> input)
+        public static LinkedList<int> RemoveDuplicates2and1(LinkedList<int> input)
         {
             var result = new LinkedList<int>();
             var n = input.First;
@@ -25,7 +25,7 @@ namespace src
             return result;
         }
 
-        public LinkedList<int> RemoveDuplicates2and1v2(LinkedList<int> input)
+        public static LinkedList<int> RemoveDuplicates2and1v2(LinkedList<int> input)
         {
             var current = input.First;
             while (current.Next != null)

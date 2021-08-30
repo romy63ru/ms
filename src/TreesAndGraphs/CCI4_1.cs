@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace src
+namespace TreesAndGraphs
 {
     public enum State { Unvisited, Visited, Visiting }
 
@@ -11,7 +11,6 @@ namespace src
         public Node[] Children = new Node[3];
         public State State;
     }
-
 
     public class Graph
     {
@@ -29,12 +28,12 @@ namespace src
         }
     }
 
-    public class TreesAndGraphs
+    /// <summary>
+    /// 4.1 Given a directed graph, design an algorithm to find out whether there is a route between two nodes.
+    /// </summary>
+    public class CCI4_1
     { 
-        //Tasks
-
-        //4.1 Given a directed graph, design an algorithm to find out whether there is a route between two nodes.
-        public bool Task4and1(Graph g, Node start, Node end)
+        public static bool Task4and1(Graph g, Node start, Node end)
         {
             if (start==end)
             {
@@ -77,27 +76,6 @@ namespace src
                 }
             }
             return false;
-        }
-
-
-        //4.2 Minimal Tree: Given a sorted (increasing order) array with unique integer elements, write an algo­
-        //rithm to create a binary search tree with minimal height.
-        public TreeNode CreateMinimalBST(int[] arr)
-        {
-            return CreateMinimalBST(arr, 0, arr.Length - 1);
-        }
-
-        public TreeNode CreateMinimalBST(int[] arr, int start, int end)
-        {
-            if (end < start)
-            {
-                return null;
-            }
-            int mid = (start + end) / 2;
-            TreeNode n = new TreeNode(arr[mid]);
-            n.left = CreateMinimalBST(arr, start, mid - 1);
-            n.right = CreateMinimalBST(arr, mid + 1, end);
-            return n;
         }
     }
 }
