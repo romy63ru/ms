@@ -3,10 +3,9 @@ using System.Collections.Generic;
 
 namespace Lists
 {
+	///2.1 Remove Dups! Write code to remove duplicates from an unsorted linked list.
     public class CCI2_1
     {
-
-        //2.1 Remove Dups! Write code to remove duplicates from an unsorted linked list.
         public static LinkedList<int> RemoveDuplicates2and1(LinkedList<int> input)
         {
             var result = new LinkedList<int>();
