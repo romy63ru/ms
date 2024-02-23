@@ -23,8 +23,11 @@ namespace src
 
             // d.DeleteDuplicates(head);
 
-            var d = new LetterCombinationsSol();
-            Console.WriteLine(d.LetterCombinations("23"));
+            // var d = new LetterCombinationsSol();
+            // Console.WriteLine(d.LetterCombinations("23"));
+
+            var s = new SolutionBacktrack1();
+            var result = s.LetterCombinations("237");
         }
     }
 }
