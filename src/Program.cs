@@ -26,8 +26,15 @@ namespace src
             // var d = new LetterCombinationsSol();
             // Console.WriteLine(d.LetterCombinations("23"));
 
-            var s = new SolutionBacktrack1();
-            var result = s.LetterCombinations("237");
+            // var s = new SolutionBacktrack1();
+            // var result = s.LetterCombinations("237");
+
+          
+
+            var s = new ReverseWordIISolution();
+            char[] input = {'t','h','e',' ','s','k','y',' ','i','s',' ','b','l','u','e'};
+            s.ReverseWords(input);
+            Console.WriteLine(input);
         }
     }
 }
