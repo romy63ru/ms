@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using leetcode;
 
 namespace src
 {
-    class Program
+    partial class Program
     {
         static void Main(string[] args)
         {
@@ -36,9 +37,12 @@ namespace src
             // var res = s.RemoveDuplicates(new int[] { 1, 1, 2, 3, 4, 4, 4 });
             // var res2 = s.RemoveDuplicates(new int[] { 1, 1, 2});
 
-            var s = new SolutionSorting2();
-            // var r = s.FindMin(new int[] { 4, 5, 6, 7, 0, 1, 2 });
-            var r2 = s.FindMin(new int[]{11,13,15,17});
+            // var s = new SolutionSorting2();
+            // // var r = s.FindMin(new int[] { 4, 5, 6, 7, 0, 1, 2 });
+            // var r2 = s.FindMin(new int[]{11,13,15,17});
+
+            var s = new SolutionCoins();
+            var r = s.Change(5, [1,2,5]);
         }
     }
 }
