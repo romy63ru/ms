@@ -1,6 +1,6 @@
 using System;
 
-public class Solution
+public class Solution1
 {
     public bool IsPalindrome(string s)
     {

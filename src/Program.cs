@@ -41,8 +41,14 @@ namespace src
             // // var r = s.FindMin(new int[] { 4, 5, 6, 7, 0, 1, 2 });
             // var r2 = s.FindMin(new int[]{11,13,15,17});
 
-            var s = new SolutionCoins();
-            var r = s.Change(5, [1,2,5]);
+            // var s = new SolutionCoins();
+            // var r = s.Change(5, [1,2,5]);
+            var s = new TicTacToe(2);
+            Console.WriteLine(s.Move(0,1,1));
+            Console.WriteLine(s.Move(1,1,2));
+            Console.WriteLine(s.Move(1,0,1));
+
+
         }
     }
 }
