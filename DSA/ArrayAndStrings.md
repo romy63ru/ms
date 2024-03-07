@@ -517,7 +517,153 @@ public class Solution {
 ```
 
 
-- [ ] Trapping Rain Water [211](https://leetcode.com/explore/interview/card/microsoft/30/array-and-strings/211/)
-- [ ] Set Matrix Zeroes [203](https://leetcode.com/explore/interview/card/microsoft/30/array-and-strings/203/)
-- [ ] Rotate Image [202](https://leetcode.com/explore/interview/card/microsoft/30/array-and-strings/202/)
-- [ ] Spiral Matrix [178](https://leetcode.com/explore/interview/card/microsoft/30/array-and-strings/178/)
+## Trapping Rain Water [211](https://leetcode.com/explore/interview/card/microsoft/30/array-and-strings/211/)
+
+Two pointers
+
+```C#
+public class Solution {
+    public int Trap(int[] height) {
+        int n = height.Length, left = 0, right = n-1;
+        int leftMax = 0, rightMax = 0;
+        int ans = 0; 
+
+        while(left<right)
+        {
+            if(height[left]<height[right])
+            {
+                if(leftMax<height[left])
+                {
+                    leftMax = height[left];
+                }
+                else
+                {
+                    ans+= leftMax-height[left];
+                }
+                left++;
+            }
+            else
+            {
+                if(rightMax<height[right])
+                {
+                    rightMax =  height[right];
+                }
+                else
+                {
+                    ans+=rightMax-height[right];
+                }
+                right--;
+            }
+        }
+        return ans;
+    }
+}
+```
+
+> Time O(N), Space O(1)
+
+## Set Matrix Zeroes [203](https://leetcode.com/explore/interview/card/microsoft/30/array-and-strings/203/)
+
+```C#
+public class Solution {
+    public void SetZeroes(int[][] matrix) 
+    {
+        bool firstRow = false, firstCol = false;
+        
+        for(int r = 0; r < matrix.Length; r++) {
+            for(int c = 0; c < matrix[0].Length; c++) 
+            {
+                if(matrix[r][c] == 0) {
+                    if(r == 0) firstRow = true; 
+                    if(c == 0) firstCol = true; 
+                    matrix[r][0] = 0; 
+                    matrix[0][c] = 0;
+                }
+            }
+        }
+
+        for(int r = 1; r < matrix.Length; r++) {
+            for(int c = 1; c < matrix[0].Length; c++) {
+                if(matrix[r][0] == 0 || matrix[0][c] == 0) {
+                        matrix[r][c] = 0;
+                }
+            }
+        }   
+
+        if(firstRow) {
+            for(int c = 0; c < matrix[0].Length; c++) {
+                matrix[0][c] = 0;
+            }
+        } 
+
+        if(firstCol) {
+            for(int r = 0; r < matrix.Length; r++) {
+                matrix[r][0] = 0;
+            }
+        }      
+    }
+}
+```
+
+> Time O(MxN), Space O(1)
+
+[Solution](https://leetcode.com/problems/set-matrix-zeroes/editorial/)
+
+## Rotate Image [202](https://leetcode.com/explore/interview/card/microsoft/30/array-and-strings/202/)
+
+```C#
+public class Solution {
+    public void Rotate(int[][] matrix) {
+        int n = matrix.Length;
+        for(int i=0; i<(n+1)/2; i++)
+        {
+            for(int j = 0; j < n/2; j++)
+            {
+                int temp = matrix[n-1-j][i];
+                matrix[n-1-j][i] = matrix[n-1-i][n-j-1];
+                matrix[n-1-i][n-j-1] = matrix[j][n-1-i];
+                matrix[j][n-1-i] = matrix[i][j];
+                matrix[i][j] = temp;
+            }
+        }
+    }
+}
+```
+
+## Spiral Matrix [178](https://leetcode.com/explore/interview/card/microsoft/30/array-and-strings/178/)
+
+```C#
+public class Solution {
+    public IList<int> SpiralOrder(int[][] matrix) {
+        IList<int> res = new List<int>();
+        int top = 0;
+        int left = 0;
+        int right = matrix[0].Length - 1;
+        int bot = matrix.Length - 1;
+        int elements = matrix.Length * matrix[0].Length;
+
+        while (res.Count < elements) {
+            for (int i = left; i <= right && res.Count < elements; i++) {
+                res.Add(matrix[top][i]);
+            }
+            top++;
+            for (int j = top; j <= bot && res.Count < elements; j++) {
+                res.Add(matrix[j][right]);
+            }
+            right--;
+            for (int i = right; i >= left && res.Count < elements; i--) {
+                res.Add(matrix[bot][i]);
+            }
+            bot--;
+            for (int i = bot; i >= top && res.Count < elements; i--) {
+                res.Add(matrix[i][left]);
+            }
+            left++;
+        }
+
+        return res;
+    }
+}
+```
+
+> Time O(MxN), Space O(1)
