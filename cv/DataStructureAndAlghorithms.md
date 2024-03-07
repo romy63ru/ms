@@ -2,15 +2,6 @@
 >Alex Romanov, Saturday 2 March 2024
 
 ## Data Structure
-### Array Strings
-
-`ArrayList()` 
-Read O(1) Insert O(1)
-
-`StringBuilder()`
-
-`Dictionary(Hash)`
-O(1) but lot of collision O(N)
 
 ### LinkedList
 
@@ -32,102 +23,6 @@ Queue<T>()
 	T Dequeue()
 ```
 
-# Array and Strings
-- [ ] Two Sum [173](https://leetcode.com/explore/interview/card/microsoft/30/array-and-strings/173/)
-
-## Valid Palindrome
-
-[162](https://leetcode.com/explore/interview/card/microsoft/30/array-and-strings/162/)
-
-A phrase is a palindrome if, after converting all uppercase letters into lowercase letters and removing all non-alphanumeric characters, it reads the same forward and backward. Alphanumeric characters include letters and numbers.
-
-Given a string s, return true if it is a palindrome, or false otherwise.
-
-```C#
-public class Solution {
-    public bool IsPalindrome(string s)
-    {
-        if (s == " ") return true;
-        string normStr = "";
-        foreach (var ch in s)
-        {
-            if (char.IsLetterOrDigit(ch))
-            {
-                normStr += char.ToLower(ch);
-            }
-        }
-        if (normStr == "") return true;
-        int j = normStr.Length - 1;
-        for (int i = 0; i < normStr.Length / 2 + 1; i++)
-        {
-            if (normStr[i] != normStr[j])
-            {
-                return false;
-            }
-            j--;
-        }
-        return true;
-    }
-}
-```
-
-
-## String to Integer (atoi)
-
-Implement the myAtoi(string s) function, which converts a string to a 32-bit signed integer (similar to C/C++'s atoi function).
-
-The algorithm for myAtoi(string s) is as follows:
-
-Read in and ignore any leading whitespace.
-Check if the next character (if not already at the end of the string) is '-' or '+'. Read this character in if it is either. This determines if the final result is negative or positive respectively. Assume the result is positive if neither is present.
-Read in next the characters until the next non-digit character or the end of the input is reached. The rest of the string is ignored.
-Convert these digits into an integer (i.e. "123" -> 123, "0032" -> 32). If no digits were read, then the integer is 0. Change the sign as necessary (from step 2).
-If the integer is out of the 32-bit signed integer range [-231, 231 - 1], then clamp the integer so that it remains in the range. Specifically, integers less than -231 should be clamped to -231, and integers greater than 231 - 1 should be clamped to 231 - 1.
-Return the integer as the final result.
-
-```C#
-public class Solution {
-    public int MyAtoi(string s) 
-    {
-        var i = 0;
-        while (i < s.Length && s[i] is ' ') i++;
-        var negative = false;
-        if (i < s.Length && s[i] is '-' or '+')
-        {
-            negative = s[i++] == '-';
-        }
-        int value = 0;
-
-        while (i < s.Length && char.IsDigit(s[i])) 
-        {
-            const int BASE = 10;
-            var append = s[i++] - '0';
-            try {
-                checked {
-                    value *= BASE;
-                    if (negative) value -= append;
-                    else value += append;
-                }
-            } catch (OverflowException) {
-                value = negative ? int.MinValue : int.MaxValue;
-                break;
-            }
-        }
-        return value;
-    }
-}
-```
-
- - [ ] Reverse String [187](https://leetcode.com/explore/interview/card/microsoft/30/array-and-strings/187/)
- - [ ] Reverse Words in a String [166](https://leetcode.com/explore/interview/card/microsoft/30/array-and-strings/166/)
- - [ ] Reverse Words in a String II [213](https://leetcode.com/explore/interview/card/microsoft/30/array-and-strings/213/)
- - [ ] Valid Parentheses [179](https://leetcode.com/explore/interview/card/microsoft/30/array-and-strings/179/)
- - [ ] Longest Palindromic Substring [180](https://leetcode.com/explore/interview/card/microsoft/30/array-and-strings/180/)
- - [ ] Group Anagrams [200](https://leetcode.com/explore/interview/card/microsoft/30/array-and-strings/200/)
- - [ ] Trapping Rain Water [211](https://leetcode.com/explore/interview/card/microsoft/30/array-and-strings/211/)
- - [ ] Set Matrix Zeroes [203](https://leetcode.com/explore/interview/card/microsoft/30/array-and-strings/203/)
- - [ ] Rotate Image [202](https://leetcode.com/explore/interview/card/microsoft/30/array-and-strings/202/)
- - [ ] Spiral Matrix [178](https://leetcode.com/explore/interview/card/microsoft/30/array-and-strings/178/)
 
 # LinkedLists
 
