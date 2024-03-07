@@ -1,6 +1,6 @@
 # Array and Strings
 
-`ArrayList()` 
+`ArrayList()`
 Read O(1) Insert O(1)
 
 `StringBuilder()`
@@ -14,7 +14,7 @@ Given an array of integers nums and an integer target, return indices of the two
 You may assume that each input would have exactly one solution, and you may not use the same element twice.
 You can return the answer in any order.
 
-### Example 1:
+### Example 1
 
 ```
 Input: nums = [2,7,11,15], target = 9
@@ -22,28 +22,28 @@ Output: [0,1]
 Explanation: Because nums[0] + nums[1] == 9, we return [0, 1].
 ```
 
-### Example 2:
+### Example 2
 
 ```
 Input: nums = [3,2,4], target = 6
 Output: [1,2]
 ```
 
-### Example 3:
+### Example 3
 
 ```
 Input: nums = [3,3], target = 6
 Output: [0,1]
 ```
 
-### Constraints:
+### Constraints
 
 ```
 2 <= nums.length <= 104
 -109 <= nums[i] <= 109
 -109 <= target <= 109
 Only one valid answer exists.
-``` 
+```
 
 > Follow-up: Can you come up with an algorithm that is less than O(n2) time complexity?
 
@@ -152,6 +152,7 @@ public class Solution {
     }
 }
 ```
+
 > Time O(N), Space O(1)
 
 [Solution](https://leetcode.com/problems/string-to-integer-atoi/editorial/)
@@ -161,21 +162,21 @@ public class Solution {
 Write a function that reverses a string. The input string is given as an array of characters s.
 You must do this by modifying the input array in-place with O(1) extra memory.
 
-### Example 1:
+### Example 1
 
 ```
 Input: s = ["h","e","l","l","o"]
 Output: ["o","l","l","e","h"]
 ```
 
-### Example 2:
+### Example 2
 
 ```
 Input: s = ["H","a","n","n","a","h"]
 Output: ["h","a","n","n","a","H"]
 ```
 
-### Constraints:
+### Constraints
 
 ```
 1 <= s.length <= 105
@@ -204,7 +205,6 @@ public class Solution {
 
 [Solution](https://leetcode.com/problems/reverse-string/editorial/)
 
-
 ## Reverse Words in a String [166](https://leetcode.com/explore/interview/card/microsoft/30/array-and-strings/166/)
 
 Given an input string s, reverse the order of the words.
@@ -212,16 +212,14 @@ A word is defined as a sequence of non-space characters. The words in s will be 
 Return a string of the words in reverse order concatenated by a single space.
 Note that s may contain leading or trailing spaces or multiple spaces between two words. The returned string should only have a single space separating the words. Do not include any extra spaces.
 
- 
-
-### Example 1:
+### Example 1
 
 ```
 Input: s = "the sky is blue"
 Output: "blue is sky the"
 ```
 
-### Example 2:
+### Example 2
 
 ```
 Input: s = "  hello world  "
@@ -229,7 +227,7 @@ Output: "world hello"
 Explanation: Your reversed string should not contain leading or trailing spaces.
 ```
 
-### Example 3:
+### Example 3
 
 ```
 Input: s = "a good   example"
@@ -237,13 +235,13 @@ Output: "example good a"
 Explanation: You need to reduce multiple spaces between two words to a single space in the reversed string.
 ```
 
-### Constraints:
+### Constraints
 
 ```
 1 <= s.length <= 104
 s contains English letters (upper-case and lower-case), digits, and spaces ' '.
 There is at least one word in s.
-``` 
+```
 
 > Follow-up: If the string data type is mutable in your language, can you solve it in-place with O(1) extra space?
 > **Approach 2: Reverse the Whole String and Then Reverse Each Word (with submethods)**
@@ -282,11 +280,244 @@ public class Solution {
 
 [Solution](https://leetcode.com/problems/reverse-words-in-a-string/editorial/)
 
- - [ ] Reverse Words in a String II [213](https://leetcode.com/explore/interview/card/microsoft/30/array-and-strings/213/)
- - [ ] Valid Parentheses [179](https://leetcode.com/explore/interview/card/microsoft/30/array-and-strings/179/)
- - [ ] Longest Palindromic Substring [180](https://leetcode.com/explore/interview/card/microsoft/30/array-and-strings/180/)
- - [ ] Group Anagrams [200](https://leetcode.com/explore/interview/card/microsoft/30/array-and-strings/200/)
- - [ ] Trapping Rain Water [211](https://leetcode.com/explore/interview/card/microsoft/30/array-and-strings/211/)
- - [ ] Set Matrix Zeroes [203](https://leetcode.com/explore/interview/card/microsoft/30/array-and-strings/203/)
- - [ ] Rotate Image [202](https://leetcode.com/explore/interview/card/microsoft/30/array-and-strings/202/)
- - [ ] Spiral Matrix [178](https://leetcode.com/explore/interview/card/microsoft/30/array-and-strings/178/)
+## Reverse Words in a String II [213](https://leetcode.com/explore/interview/card/microsoft/30/array-and-strings/213/)
+
+Given a character array s, reverse the order of the words.
+A word is defined as a sequence of non-space characters. The words in s will be separated by a single space.
+Your code must solve the problem in-place, i.e. without allocating extra space.
+
+### Example 1:
+
+```
+Input: s = ["t","h","e"," ","s","k","y"," ","i","s"," ","b","l","u","e"]
+Output: ["b","l","u","e"," ","i","s"," ","s","k","y"," ","t","h","e"]
+```
+
+### Example 2:
+
+```
+Input: s = ["a"]
+Output: ["a"]
+``` 
+
+### Constraints:
+
+```
+1 <= s.length <= 105
+s[i] is an English letter (uppercase or lowercase), digit, or space ' '.
+There is at least one word in s.
+s does not contain leading or trailing spaces.
+All the words in s are guaranteed to be separated by a single space.
+```
+
+```C#
+public class Solution {
+    public char[] ReverseString(char[] s, int i, int j)
+    {
+        char tmp = ' ';
+        while(i<j)
+        {
+            tmp = s[j];
+            s[j] = s[i];
+            s[i] = tmp;
+            i++;
+            j--;
+        }
+        return s;
+    }
+    
+    public void ReverseWords(char[] s) {
+        int i = 0;
+        int j = 0;
+        s = ReverseString(s, 0, s.Count()-1);
+        while(i<s.Count())
+        {
+            while(j<s.Count() && s[j] != ' ')
+            {
+                j++;
+            }
+            s = ReverseString(s, i, j-1);    
+            j++;
+            i=j;
+        }
+    }
+}
+```
+> Time O(N), Space O(1)
+
+
+[Solution](https://leetcode.com/problems/reverse-words-in-a-string-ii/editorial/)
+
+## Valid Parentheses [179](https://leetcode.com/explore/interview/card/microsoft/30/array-and-strings/179/)
+
+Given a string s containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.
+An input string is valid if:
+
+1. Open brackets must be closed by the same type of brackets.
+2. Open brackets must be closed in the correct order.
+3. Every close bracket has a corresponding open bracket of the same type.
+ 
+
+### Example 1:
+
+```
+Input: s = "()"
+Output: true
+```
+
+### Example 2:
+
+```
+Input: s = "()[]{}"
+Output: true
+```
+
+# Example 3:
+
+```
+Input: s = "(]"
+Output: false
+ ```
+
+### Constraints:
+
+```
+1 <= s.length <= 104
+s consists of parentheses only '()[]{}'.
+```
+
+```C#
+public class Solution {
+    public bool IsValid(string s) {
+        Stack<char> temp = new Stack<char> ();
+        for(int i = 0; i<s.Length; i++)
+        {
+            if(s[i] == '(' || s[i] == '[' || s[i] == '{') temp.Push(s[i]);
+            else if(s[i] == ')' || s[i] == ']' || s[i] == '}') 
+            {
+                if(temp.Count > 0)
+                {
+                    char t = temp.Peek();
+                    if(t == '(' && s[i] == ')' || t == '[' && s[i] == ']' || t == '{' && s[i] == '}') temp.Pop();
+                    else return false;
+                }
+                else return false;
+            }
+            else continue;
+        }
+        if(temp.Count == 0) return true;
+        else return false;
+    }
+}
+```
+
+
+
+## Longest Palindromic Substring [180](https://leetcode.com/explore/interview/card/microsoft/30/array-and-strings/180/)
+
+Given a string s, return the longest palindromic substring in s.
+
+### Example 1:
+
+```
+Input: s = "babad"
+Output: "bab"
+Explanation: "aba" is also a valid answer.
+```
+
+### Example 2:
+
+```
+Input: s = "cbbd"
+Output: "bb"
+```
+
+### Constraints:
+
+```
+1 <= s.length <= 1000
+s consist of only digits and English letters.
+```
+
+```C#
+public class Solution {
+    public string LongestPalindrome(string s) {
+        string T = "^#" + string.Join("#", s.ToCharArray()) + "#$";
+        int n = T.Length;
+        int[] P = new int[n];
+        int C = 0, R = 0;
+        
+        for (int i = 1; i < n-1; i++) {
+            P[i] = (R > i) ? Math.Min(R - i, P[2*C - i]) : 0;
+            while (T[i + 1 + P[i]] == T[i - 1 - P[i]])
+                P[i]++;
+            
+            if (i + P[i] > R) {
+                C = i;
+                R = i + P[i];
+            }
+        }
+        
+        int max_len = P.Max();
+        int center_index = Array.IndexOf(P, max_len);
+        return s.Substring((center_index - max_len) / 2, max_len);
+    }
+}
+```
+
+> Time O(N), Space o(N)
+
+[Solution](https://leetcode.com/problems/longest-palindromic-substring/editorial/)
+
+
+
+## Group Anagrams [200](https://leetcode.com/explore/interview/card/microsoft/30/array-and-strings/200/)
+
+Given an array of strings strs, group the anagrams together. You can return the answer in any order.
+An Anagram is a word or phrase formed by rearranging the letters of a different word or phrase, typically using all the original letters exactly once.
+ 
+### Example 1:
+
+```
+Input: strs = ["eat","tea","tan","ate","nat","bat"]
+Output: [["bat"],["nat","tan"],["ate","eat","tea"]]
+```
+
+### Example 2:
+
+```
+Input: strs = [""]
+Output: [[""]]
+```
+
+### Example 3:
+
+```
+Input: strs = ["a"]
+Output: [["a"]]
+``` 
+
+### Constraints:
+
+```
+1 <= strs.length <= 104
+0 <= strs[i].length <= 100
+strs[i] consists of lowercase English letters.
+```
+
+```C#
+public class Solution {
+    public IList<IList<string>> GroupAnagrams(string[] strs) {
+        return strs
+            .GroupBy(s => new string(s.OrderBy(c => c).ToArray()))
+            .Select(g => g.ToList() as IList<string>)
+            .ToList();
+    }
+}
+```
+
+
+- [ ] Trapping Rain Water [211](https://leetcode.com/explore/interview/card/microsoft/30/array-and-strings/211/)
+- [ ] Set Matrix Zeroes [203](https://leetcode.com/explore/interview/card/microsoft/30/array-and-strings/203/)
+- [ ] Rotate Image [202](https://leetcode.com/explore/interview/card/microsoft/30/array-and-strings/202/)
+- [ ] Spiral Matrix [178](https://leetcode.com/explore/interview/card/microsoft/30/array-and-strings/178/)
