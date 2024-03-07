@@ -372,7 +372,7 @@ Input: s = "()[]{}"
 Output: true
 ```
 
-# Example 3:
+### Example 3:
 
 ```
 Input: s = "(]"
@@ -392,21 +392,44 @@ public class Solution {
         Stack<char> temp = new Stack<char> ();
         for(int i = 0; i<s.Length; i++)
         {
-            if(s[i] == '(' || s[i] == '[' || s[i] == '{') temp.Push(s[i]);
+            if(s[i] == '(' || s[i] == '[' || s[i] == '{') 
+            {
+                temp.Push(s[i]);
+            }
             else if(s[i] == ')' || s[i] == ']' || s[i] == '}') 
             {
                 if(temp.Count > 0)
                 {
                     char t = temp.Peek();
-                    if(t == '(' && s[i] == ')' || t == '[' && s[i] == ']' || t == '{' && s[i] == '}') temp.Pop();
-                    else return false;
+                    if(t == '(' && s[i] == ')' 
+                        || t == '[' && s[i] == ']' 
+                        || t == '{' && s[i] == '}') 
+                    {
+                        temp.Pop();
+                    }
+                    else 
+                    {
+                        return false;
+                    }
                 }
-                else return false;
+                else
+                { 
+                    return false;
+                }
             }
-            else continue;
+            else 
+            {
+                continue;
+            }
         }
-        if(temp.Count == 0) return true;
-        else return false;
+        if(temp.Count == 0) 
+        {
+            return true;
+        }
+        else 
+        {
+            return false;
+        }
     }
 }
 ```

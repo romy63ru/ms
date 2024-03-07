@@ -143,12 +143,6 @@
 <p>Alex Romanov, Saturday 2 March 2024</p>
 </blockquote>
 <h2 id="data-structure">Data Structure</h2>
-<h3 id="array-strings">Array Strings</h3>
-<p><code>ArrayList()</code>
-Read O(1) Insert O(1)</p>
-<p><code>StringBuilder()</code></p>
-<p><code>Dictionary(Hash)</code>
-O(1) but lot of collision O(N)</p>
 <h3 id="linkedlist">LinkedList</h3>
 <p><code>LinkedList&lt;T&gt;()</code>
 in C# cant manage nodes!</p>
@@ -163,12 +157,855 @@ in C# cant manage nodes!</p>
 	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Enqueue</span>(<span class="hljs-params">T item</span>)
 	T <span class="hljs-title">Dequeue</span>()
 </span></code></pre>
+<h1 id="linkedlists">LinkedLists</h1>
+<ul class="contains-task-list">
+<li class="task-list-item enabled"><input class="task-list-item-checkbox"type="checkbox"> Reverse Linked List <a href="https://leetcode.com/explore/interview/card/microsoft/32/linked-list/169/">169</a></li>
+</ul>
+<h2 id="linked-list-cycle">Linked List Cycle</h2>
+<p>[<a href="https://leetcode.com/explore/interview/card/microsoft/32/linked-list/184/">https://leetcode.com/explore/interview/card/microsoft/32/linked-list/184/</a>]</p>
+<p>Given head, the head of a linked list, determine if the linked list has a cycle in it.</p>
+<p>There is a cycle in a linked list if there is some node in the list that can be reached again by continuously following the next pointer. Internally, pos is used to denote the index of the node that tail's next pointer is connected to. Note that pos is not passed as a parameter.</p>
+<p>Return true if there is a cycle in the linked list. Otherwise, return false.</p>
 <pre><code class="language-C#"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> {
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-built_in">int</span>[] <span class="hljs-title">TwoSum</span>(<span class="hljs-params"><span class="hljs-built_in">int</span>[] nums, <span class="hljs-built_in">int</span> target</span>)</span> {
-        
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-built_in">bool</span> <span class="hljs-title">HasCycle</span>(<span class="hljs-params">ListNode head</span>)</span> {
+        <span class="hljs-keyword">if</span>(head==<span class="hljs-literal">null</span>) <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+        List&lt;ListNode&gt; list = <span class="hljs-keyword">new</span> List&lt;ListNode&gt;();
+        ListNode node = head;
+        <span class="hljs-keyword">while</span>(node.next != <span class="hljs-literal">null</span>)
+        {
+            <span class="hljs-keyword">if</span>(list.Contains(node))
+            {
+                <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+            }
+            list.Add(node);
+            node = node.next;
+        }
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
     }
 }
 </code></pre>
+<blockquote>
+<p>O(N)?</p>
+</blockquote>
+<ul class="contains-task-list">
+<li class="task-list-item enabled"><input class="task-list-item-checkbox"type="checkbox"> Add Two Numbers <a href="https://leetcode.com/explore/interview/card/microsoft/32/linked-list/170/">170</a></li>
+<li class="task-list-item enabled"><input class="task-list-item-checkbox"type="checkbox"> Add Two Numbers II <a href="https://leetcode.com/explore/interview/card/microsoft/32/linked-list/205/">205</a></li>
+<li class="task-list-item enabled"><input class="task-list-item-checkbox"type="checkbox"> Merge Two Sorted Lists <a href="https://leetcode.com/explore/interview/card/microsoft/32/linked-list/175/">175</a></li>
+<li class="task-list-item enabled"><input class="task-list-item-checkbox"type="checkbox"> Merge k Sorted Lists <a href="https://leetcode.com/explore/interview/card/microsoft/32/linked-list/209/">209</a></li>
+<li class="task-list-item enabled"><input class="task-list-item-checkbox"type="checkbox"> Intersection of Two Linked Lists <a href="https://leetcode.com/explore/interview/card/microsoft/32/linked-list/212/">212</a></li>
+<li class="task-list-item enabled"><input class="task-list-item-checkbox"type="checkbox"> Copy List with Random Pointer <a href="https://leetcode.com/explore/interview/card/microsoft/32/linked-list/168/">168</a></li>
+</ul>
+<h1 id="trees-and-graphs">Trees and Graphs</h1>
+<h2 id="validate-binary-search-tree">Validate Binary Search Tree</h2>
+<p><a href="https://leetcode.com/explore/interview/card/microsoft/31/trees-and-graphs/152/">152</a></p>
+<p>Given the root of a binary tree, determine if it is a valid binary search tree (BST).</p>
+<p>A valid BST is defined as follows:</p>
+<ul>
+<li>The left subtree of a node contains only nodes with keys less than the node's key.</li>
+<li>The right subtree of a node contains only nodes with keys greater than the node's key.</li>
+<li>Both the left and right subtrees must also be binary search trees.</li>
+</ul>
+<h3 id="example-1">Example 1:</h3>
+<p><img src="https://assets.leetcode.com/uploads/2020/12/01/tree1.jpg" alt="alt text"></p>
+<pre><code>Input: root = [2,1,3]
+Output: true
+</code></pre>
+<h3 id="example-2">Example 2:</h3>
+<p><img src="https://assets.leetcode.com/uploads/2020/12/01/tree2.jpg" alt="alt text"></p>
+<pre><code>Input: root = [5,1,4,null,null,3,6]
+Output: false
+Explanation: The root node's value is 5 but its right child's value is 4.
+</code></pre>
+<h3 id="constraints">Constraints:</h3>
+<pre><code>The number of nodes in the tree is in the range [1, 104].
+-231 &lt;= Node.val &lt;= 231 - 1
+</code></pre>
+<pre><code class="language-C#"><span class="hljs-comment">/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     public int val;
+ *     public TreeNode left;
+ *     public TreeNode right;
+ *     public TreeNode(int val=0, TreeNode left=null, TreeNode right=null) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */</span>
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> {
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-built_in">bool</span> <span class="hljs-title">IsValidBST</span>(<span class="hljs-params">TreeNode root</span>)</span> {
+        <span class="hljs-keyword">return</span> Evaluate(root, <span class="hljs-built_in">long</span>.MinValue, <span class="hljs-built_in">long</span>.MaxValue);
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-built_in">bool</span> <span class="hljs-title">Evaluate</span>(<span class="hljs-params">TreeNode node, <span class="hljs-built_in">long</span> min, <span class="hljs-built_in">long</span> max</span>)</span>
+    {
+        <span class="hljs-keyword">if</span> (node == <span class="hljs-literal">null</span>)
+        {
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+        }
+
+        <span class="hljs-keyword">return</span> (
+            node.val &gt; min &amp;&amp;
+            node.val &lt; max &amp;&amp;
+            Evaluate(node.left, min, node.val) &amp;&amp;
+            Evaluate(node.right, node.val, max)
+        );
+    }
+}
+</code></pre>
+<blockquote>
+<p>Time complexity: O(N) since we visit each node exactly once.
+Space complexity: O(N) since we keep up to the entire tree.</p>
+</blockquote>
+<p><a href="https://leetcode.com/problems/validate-binary-search-tree/editorial/">Solution</a></p>
+<h2 id="binary-tree-inorder-traversal">Binary Tree Inorder Traversal</h2>
+<p><a href="https://leetcode.com/explore/interview/card/microsoft/31/trees-and-graphs/153/">153</a></p>
+<p>Given the root of a binary tree, return the inorder traversal of its nodes' values.</p>
+<h3 id="example1">Example1:</h3>
+<p><img src="https://assets.leetcode.com/uploads/2020/09/15/inorder_1.jpg" alt="Example1"></p>
+<pre><code>Input: root = [1,null,2,3]
+Output: [1,3,2]
+</code></pre>
+<h3 id="example-2-1">Example 2:</h3>
+<pre><code>Input: root = []
+Output: []
+</code></pre>
+<h3 id="example-3">Example 3:</h3>
+<p>Input: root = [1]
+Output: [1]</p>
+<h3 id="constraints-1">Constraints:</h3>
+<pre><code>The number of nodes in the tree is in the range [0, 100].
+-100 &lt;= Node.val &lt;= 100
+</code></pre>
+<blockquote>
+<p>Follow up: Recursive solution is trivial, could you do it iteratively?</p>
+</blockquote>
+<pre><code class="language-C#"><span class="hljs-comment">/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     public int val;
+ *     public TreeNode left;
+ *     public TreeNode right;
+ *     public TreeNode(int val=0, TreeNode left=null, TreeNode right=null) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */</span>
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> {
+    <span class="hljs-function"><span class="hljs-keyword">public</span> IList&lt;<span class="hljs-built_in">int</span>&gt; <span class="hljs-title">InorderTraversal</span>(<span class="hljs-params">TreeNode root</span>)</span> {
+        List&lt;<span class="hljs-built_in">int</span>&gt; result = <span class="hljs-keyword">new</span> List&lt;<span class="hljs-built_in">int</span>&gt;();
+        <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">InOrder</span>(<span class="hljs-params">TreeNode node</span>)</span>
+        {
+            <span class="hljs-keyword">if</span>(node!=<span class="hljs-literal">null</span>)
+            {
+                InOrder(node.left);
+                result.Add(node.val);
+                InOrder(node.right);
+            }
+        }
+        InOrder(root);
+        <span class="hljs-keyword">return</span> result;
+    }
+}
+</code></pre>
+<h2 id="binary-tree-level-order-traversal">Binary Tree Level Order Traversal</h2>
+<p><a href="https://leetcode.com/explore/interview/card/microsoft/31/trees-and-graphs/164/">164</a></p>
+<pre><code class="language-C#"> <span class="hljs-comment">/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     public int val;
+ *     public TreeNode left;
+ *     public TreeNode right;
+ *     public TreeNode(int val=0, TreeNode left=null, TreeNode right=null) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */</span>
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> {
+    <span class="hljs-keyword">public</span> IList&lt;IList&lt;<span class="hljs-built_in">int</span>&gt;&gt; LevelOrder(TreeNode root)
+    {             
+        <span class="hljs-keyword">var</span> result = <span class="hljs-keyword">new</span> List&lt;IList&lt;<span class="hljs-built_in">int</span>&gt;&gt;();
+        <span class="hljs-keyword">if</span>(root == <span class="hljs-literal">null</span>)
+        {
+            <span class="hljs-keyword">return</span> result;   
+        }
+           
+        <span class="hljs-keyword">var</span> que = <span class="hljs-keyword">new</span> Queue&lt;TreeNode&gt;();
+
+        <span class="hljs-keyword">if</span>(root==<span class="hljs-literal">null</span>) <span class="hljs-keyword">return</span> result;
+
+        que.Enqueue(root);
+        <span class="hljs-keyword">while</span> (que.Count != <span class="hljs-number">0</span>)
+        {
+            <span class="hljs-built_in">int</span> n = que.Count;
+            <span class="hljs-keyword">var</span> subList = <span class="hljs-keyword">new</span> List&lt;<span class="hljs-built_in">int</span>&gt;();
+            <span class="hljs-keyword">for</span> (<span class="hljs-built_in">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i++)
+            {
+                <span class="hljs-keyword">if</span> (que.Peek().left != <span class="hljs-literal">null</span>)
+                    que.Enqueue(que.Peek().left);
+                <span class="hljs-keyword">if</span> (que.Peek().right != <span class="hljs-literal">null</span>)
+                    que.Enqueue(que.Peek().right);
+                subList.Add(que.Dequeue().val);
+            }
+            result.Add(subList);
+        }
+        <span class="hljs-keyword">return</span> result;
+    }
+}
+</code></pre>
+<h2 id="binary-tree-zigzag-level-order-traversal">Binary Tree Zigzag Level Order Traversal</h2>
+<pre><code class="language-C#"><span class="hljs-comment">/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     public int val;
+ *     public TreeNode left;
+ *     public TreeNode right;
+ *     public TreeNode(int val=0, TreeNode left=null, TreeNode right=null) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */</span>
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> {
+    <span class="hljs-keyword">public</span> IList&lt;IList&lt;<span class="hljs-built_in">int</span>&gt;&gt; ZigzagLevelOrder(TreeNode root) {
+        <span class="hljs-keyword">var</span> result = <span class="hljs-keyword">new</span> List&lt;IList&lt;<span class="hljs-built_in">int</span>&gt;&gt;();
+        <span class="hljs-keyword">if</span> (root == <span class="hljs-literal">null</span>) <span class="hljs-keyword">return</span> result;
+
+        <span class="hljs-keyword">var</span> queue = <span class="hljs-keyword">new</span> Queue&lt;IEnumerable&lt;TreeNode&gt;&gt;();
+        queue.Enqueue(<span class="hljs-keyword">new</span> []{root});
+        <span class="hljs-keyword">var</span> level = <span class="hljs-number">0</span>;
+
+        <span class="hljs-keyword">while</span>(queue.Any())
+        {
+            <span class="hljs-keyword">var</span> nextLevel = <span class="hljs-keyword">new</span> Stack&lt;TreeNode&gt;();
+            <span class="hljs-keyword">var</span> levelRes = <span class="hljs-keyword">new</span> List&lt;<span class="hljs-built_in">int</span>&gt;();
+            result.Add(levelRes);
+            <span class="hljs-keyword">var</span> isEven = level++%<span class="hljs-number">2</span>==<span class="hljs-number">0</span>;
+            <span class="hljs-keyword">foreach</span>(<span class="hljs-keyword">var</span> node <span class="hljs-keyword">in</span> queue.Dequeue())
+            {
+                levelRes.Add(node.val);
+                
+                <span class="hljs-keyword">var</span> first = isEven ? node.left : node.right;
+                <span class="hljs-keyword">var</span> second = isEven ? node.right : node.left;
+
+                <span class="hljs-keyword">if</span> (first != <span class="hljs-literal">null</span>) nextLevel.Push(first);
+                <span class="hljs-keyword">if</span> (second != <span class="hljs-literal">null</span>) nextLevel.Push(second);
+            }
+            <span class="hljs-keyword">if</span> (nextLevel.Any())
+            {
+                queue.Enqueue(nextLevel);
+            }
+        }
+        <span class="hljs-keyword">return</span> result;
+    }
+}
+</code></pre>
+<ul class="contains-task-list">
+<li class="task-list-item enabled"><input class="task-list-item-checkbox"type="checkbox"> Populating Next Right Pointers in Each Node <a href="https://leetcode.com/explore/interview/card/microsoft/31/trees-and-graphs/192/">192</a></li>
+</ul>
+<h2 id="populating-next-right-pointers-in-each-node-ii">Populating Next Right Pointers in Each Node II</h2>
+<p><a href="https://leetcode.com/explore/interview/card/microsoft/31/trees-and-graphs/163/">163</a></p>
+<pre><code class="language-C#"><span class="hljs-comment">/*
+// Definition for a Node.
+public class Node {
+    public int val;
+    public Node left;
+    public Node right;
+    public Node next;
+
+    public Node() {}
+
+    public Node(int _val) {
+        val = _val;
+    }
+
+    public Node(int _val, Node _left, Node _right, Node _next) {
+        val = _val;
+        left = _left;
+        right = _right;
+        next = _next;
+    }
+}
+*/</span>
+
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> {
+    <span class="hljs-function"><span class="hljs-keyword">public</span> Node <span class="hljs-title">Connect</span>(<span class="hljs-params">Node root</span>)</span> {
+        <span class="hljs-keyword">if</span>(root == <span class="hljs-literal">null</span>)
+        {
+            <span class="hljs-keyword">return</span> root;   
+        }
+           
+        <span class="hljs-keyword">var</span> que = <span class="hljs-keyword">new</span> Queue&lt;Node&gt;();
+        que.Enqueue(root);
+
+        <span class="hljs-keyword">while</span> (que.Count &gt; <span class="hljs-number">0</span>)
+        {
+            <span class="hljs-built_in">int</span> n = que.Count;
+        
+            <span class="hljs-keyword">for</span> (<span class="hljs-built_in">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i++)
+            {
+                Node node = que.Dequeue();
+
+                <span class="hljs-keyword">if</span>(i&lt;n<span class="hljs-number">-1</span>)
+                {
+                    node.next = que.Peek();
+                }
+
+                <span class="hljs-keyword">if</span> (node.left != <span class="hljs-literal">null</span>)
+                {
+                    que.Enqueue(node.left);
+                }
+                <span class="hljs-keyword">if</span> (node.right != <span class="hljs-literal">null</span>)
+                {
+                    que.Enqueue(node.right);
+                }
+            }   
+        }
+        <span class="hljs-keyword">return</span> root;
+    }
+}
+</code></pre>
+<h2 id="lowest-common-ancestor-of-a-binary-search-tree">Lowest Common Ancestor of a Binary Search Tree</h2>
+<p><a href="https://leetcode.com/explore/interview/card/microsoft/31/trees-and-graphs/182/">182</a></p>
+<pre><code class="language-C#"><span class="hljs-comment">/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     public int val;
+ *     public TreeNode left;
+ *     public TreeNode right;
+ *     public TreeNode(int x) { val = x; }
+ * }
+ */</span>
+
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> {
+    <span class="hljs-function"><span class="hljs-keyword">public</span> TreeNode <span class="hljs-title">LowestCommonAncestor</span>(<span class="hljs-params">TreeNode root, TreeNode p, TreeNode q</span>)</span> {
+        <span class="hljs-built_in">int</span> parentVal = root.val;
+        <span class="hljs-built_in">int</span> pVal = p.val;
+        <span class="hljs-built_in">int</span> qVal = q.val;
+
+        <span class="hljs-keyword">if</span>(pVal &gt; parentVal &amp;&amp; qVal &gt; parentVal)
+        {
+            <span class="hljs-keyword">return</span> LowestCommonAncestor(root.right, p, q);
+        }
+        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(pVal &lt; parentVal &amp;&amp; qVal &lt; parentVal)
+        {
+            <span class="hljs-keyword">return</span> LowestCommonAncestor(root.left, p, q);
+        }
+        <span class="hljs-keyword">else</span>
+        {
+            <span class="hljs-keyword">return</span> root;
+        }
+    }
+}
+</code></pre>
+<h2 id="lowest-common-ancestor-of-a-binary-tree">Lowest Common Ancestor of a Binary Tree</h2>
+<p><a href="https://leetcode.com/explore/interview/card/microsoft/31/trees-and-graphs/181/">181</a></p>
+<pre><code class="language-C#"><span class="hljs-comment">/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     public int val;
+ *     public TreeNode left;
+ *     public TreeNode right;
+ *     public TreeNode(int x) { val = x; }
+ * }
+ */</span>
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> {
+    TreeNode ans = <span class="hljs-literal">null</span>;
+
+    <span class="hljs-function"><span class="hljs-built_in">bool</span> <span class="hljs-title">recurseTree</span>(<span class="hljs-params">TreeNode currentNode, TreeNode p, TreeNode q</span>)</span>
+    {
+        <span class="hljs-keyword">if</span>(currentNode == <span class="hljs-literal">null</span>)
+        {
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+        }
+
+        <span class="hljs-built_in">int</span> left = recurseTree(currentNode.left, p, q) ? <span class="hljs-number">1</span> : <span class="hljs-number">0</span>;
+        <span class="hljs-built_in">int</span> right = recurseTree(currentNode.right, p, q) ? <span class="hljs-number">1</span> : <span class="hljs-number">0</span>;
+        <span class="hljs-built_in">int</span> mid = (currentNode == p || currentNode == q) ? <span class="hljs-number">1</span> : <span class="hljs-number">0</span>;
+
+        <span class="hljs-keyword">if</span>(mid + left + right &gt;= <span class="hljs-number">2</span>)
+        {
+            ans = currentNode;
+        }
+        <span class="hljs-keyword">return</span> mid + left + right &gt; <span class="hljs-number">0</span>;
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> TreeNode <span class="hljs-title">LowestCommonAncestor</span>(<span class="hljs-params">TreeNode root, TreeNode p, TreeNode q</span>)</span> {
+        recurseTree(root, p, q);
+        <span class="hljs-keyword">return</span> ans;
+    }
+}
+</code></pre>
+<ul class="contains-task-list">
+<li class="task-list-item enabled"><input class="task-list-item-checkbox"type="checkbox"> Construct Binary Tree from Preorder and Inorder Traversal <a href="https://leetcode.com/explore/interview/card/microsoft/31/trees-and-graphs/196/">196</a></li>
+<li class="task-list-item enabled"><input class="task-list-item-checkbox"type="checkbox"> Number of Islands <a href="https://leetcode.com/explore/interview/card/microsoft/31/trees-and-graphs/185/">185</a></li>
+</ul>
+<h2 id="clone-graph">Clone Graph</h2>
+<p><a href="https://leetcode.com/explore/interview/card/microsoft/31/trees-and-graphs/210/">210</a></p>
+<pre><code class="language-C#"><span class="hljs-comment">/*
+// Definition for a Node.
+public class Node {
+    public int val;
+    public IList&lt;Node&gt; neighbors;
+
+    public Node() {
+        val = 0;
+        neighbors = new List&lt;Node&gt;();
+    }
+
+    public Node(int _val) {
+        val = _val;
+        neighbors = new List&lt;Node&gt;();
+    }
+
+    public Node(int _val, List&lt;Node&gt; _neighbors) {
+        val = _val;
+        neighbors = _neighbors;
+    }
+}
+*/</span>
+
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> {
+    Dictionary&lt;Node,Node&gt; visited = <span class="hljs-keyword">new</span> Dictionary&lt;Node,Node&gt;();
+    <span class="hljs-function"><span class="hljs-keyword">public</span> Node <span class="hljs-title">CloneGraph</span>(<span class="hljs-params">Node node</span>)</span> {
+        <span class="hljs-keyword">if</span> (node == <span class="hljs-literal">null</span>) <span class="hljs-keyword">return</span> node;
+
+        <span class="hljs-keyword">if</span>(visited.ContainsKey(node))
+        {
+            <span class="hljs-keyword">return</span> visited[node];
+        }
+
+        <span class="hljs-keyword">var</span> cloneNode = <span class="hljs-keyword">new</span> Node(node.val, <span class="hljs-keyword">new</span> List&lt;Node&gt;());
+        visited.Add(node, cloneNode);
+
+        <span class="hljs-keyword">foreach</span>(Node neighbor <span class="hljs-keyword">in</span> node.neighbors) {
+            cloneNode.neighbors.Add(CloneGraph(neighbor));
+        }
+        <span class="hljs-keyword">return</span> cloneNode;
+    }
+}
+</code></pre>
+<h1 id="backtracking">Backtracking</h1>
+<h2 id="letter-combinations-of-a-phone-number">Letter Combinations of a Phone Number</h2>
+<p><a href="https://leetcode.com/explore/interview/card/microsoft/46/backtracking/165/">165</a></p>
+<pre><code class="language-C#"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> {
+     List&lt;<span class="hljs-built_in">string</span>&gt; result = <span class="hljs-keyword">new</span> List&lt;<span class="hljs-built_in">string</span>&gt;();
+    Dictionary&lt;<span class="hljs-built_in">char</span>, <span class="hljs-built_in">string</span>&gt; matrix = <span class="hljs-keyword">new</span> Dictionary&lt;<span class="hljs-built_in">char</span>, <span class="hljs-built_in">string</span>&gt;(){
+        {<span class="hljs-string">&#x27;2&#x27;</span>, <span class="hljs-string">&quot;abc&quot;</span>},
+        {<span class="hljs-string">&#x27;3&#x27;</span>, <span class="hljs-string">&quot;def&quot;</span>},
+        {<span class="hljs-string">&#x27;4&#x27;</span>, <span class="hljs-string">&quot;ghi&quot;</span>},
+        {<span class="hljs-string">&#x27;5&#x27;</span>, <span class="hljs-string">&quot;jkl&quot;</span>},
+        {<span class="hljs-string">&#x27;6&#x27;</span>, <span class="hljs-string">&quot;mno&quot;</span>},
+        {<span class="hljs-string">&#x27;7&#x27;</span>, <span class="hljs-string">&quot;pqrs&quot;</span>},
+        {<span class="hljs-string">&#x27;8&#x27;</span>, <span class="hljs-string">&quot;tuv&quot;</span>},
+        {<span class="hljs-string">&#x27;9&#x27;</span>, <span class="hljs-string">&quot;wxyz&quot;</span>}
+    };
+    <span class="hljs-built_in">string</span> phoneDigits;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> IList&lt;<span class="hljs-built_in">string</span>&gt; <span class="hljs-title">LetterCombinations</span>(<span class="hljs-params"><span class="hljs-built_in">string</span> digits</span>)</span> {
+        <span class="hljs-keyword">if</span>(<span class="hljs-built_in">string</span>.IsNullOrEmpty(digits))
+        {
+            <span class="hljs-keyword">return</span> result;
+        }
+
+        phoneDigits = digits;
+        backtrack(<span class="hljs-number">0</span>, <span class="hljs-keyword">new</span> StringBuilder());
+        <span class="hljs-keyword">return</span> result;
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">backtrack</span>(<span class="hljs-params"><span class="hljs-built_in">int</span> index, StringBuilder path</span>)</span>
+    {
+        <span class="hljs-keyword">if</span>(path.Length == phoneDigits.Length) 
+        {
+            result.Add(path.ToString());
+            <span class="hljs-keyword">return</span>;
+        }
+
+        <span class="hljs-built_in">string</span> possibleLetters = matrix[phoneDigits[index]];
+        <span class="hljs-keyword">foreach</span>(<span class="hljs-built_in">char</span> letter <span class="hljs-keyword">in</span> possibleLetters) 
+        {
+            path.Append(letter);
+            backtrack(index+<span class="hljs-number">1</span>, path);
+            path.Remove(path.Length<span class="hljs-number">-1</span>, <span class="hljs-number">1</span>);
+        }
+    }
+}
+</code></pre>
+<h2 id="word-search-ii">Word Search II</h2>
+<p><a href="https://leetcode.com/explore/interview/card/microsoft/46/backtracking/256/">256</a></p>
+<pre><code class="language-C#"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">TrieNode</span>
+{
+    <span class="hljs-keyword">public</span> Dictionary&lt;<span class="hljs-built_in">char</span>, TrieNode&gt; children = <span class="hljs-keyword">new</span> Dictionary&lt;<span class="hljs-built_in">char</span>, TrieNode&gt;();
+    <span class="hljs-keyword">public</span> <span class="hljs-built_in">string</span> word;
+}
+
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> {
+    <span class="hljs-keyword">private</span> List&lt;<span class="hljs-built_in">string</span>&gt; result = <span class="hljs-keyword">new</span> List&lt;<span class="hljs-built_in">string</span>&gt;();
+    <span class="hljs-keyword">private</span> <span class="hljs-built_in">char</span>[][] board;
+    
+    <span class="hljs-function"><span class="hljs-keyword">public</span> IList&lt;<span class="hljs-built_in">string</span>&gt; <span class="hljs-title">FindWords</span>(<span class="hljs-params"><span class="hljs-built_in">char</span>[][] board, <span class="hljs-built_in">string</span>[] words</span>)</span> 
+    {
+        <span class="hljs-keyword">this</span>.board = board;
+
+        <span class="hljs-comment">//tree contruction</span>
+        TrieNode root = <span class="hljs-keyword">new</span> TrieNode();
+        <span class="hljs-keyword">foreach</span>(<span class="hljs-built_in">string</span> word <span class="hljs-keyword">in</span> words)
+        {
+            TrieNode node = root;
+            <span class="hljs-keyword">foreach</span>(<span class="hljs-built_in">char</span> letter <span class="hljs-keyword">in</span> word)
+            {
+                <span class="hljs-keyword">if</span>(node.children.ContainsKey(letter))
+                {
+                    node = node.children[letter];
+                }
+                <span class="hljs-keyword">else</span> 
+                {
+                    TrieNode newNode = <span class="hljs-keyword">new</span> TrieNode();
+                    node.children.Add(letter, newNode);
+                    node = newNode;
+                }
+            }
+            node.word = word;
+        }
+
+        <span class="hljs-comment">//backtraking</span>
+        <span class="hljs-keyword">for</span>(<span class="hljs-built_in">int</span> row=<span class="hljs-number">0</span>;row&lt;board.Length; ++row)
+        {
+            <span class="hljs-keyword">for</span>(<span class="hljs-built_in">int</span> col = <span class="hljs-number">0</span>; col &lt; board[row].Length; ++col)
+            {
+                <span class="hljs-keyword">if</span>(root.children.ContainsKey(board[row][col]))
+                {
+                    backtracking(row, col, root);
+                }
+            }
+        }
+
+        <span class="hljs-keyword">return</span> result;
+    }
+    
+    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">backtracking</span>(<span class="hljs-params"><span class="hljs-built_in">int</span> row, <span class="hljs-built_in">int</span> col, TrieNode parent</span>)</span>
+    {
+        <span class="hljs-built_in">char</span> letter = board[row][col];
+        TrieNode curNode = parent.children[letter];
+
+        <span class="hljs-keyword">if</span>(curNode.word != <span class="hljs-literal">null</span>)
+        {
+            result.Add(curNode.word);
+            curNode.word = <span class="hljs-literal">null</span>;
+        }
+
+        board[row][col] = <span class="hljs-string">&#x27;#&#x27;</span>;
+
+        <span class="hljs-built_in">int</span>[] rowOffset = {<span class="hljs-number">-1</span>,<span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-number">0</span>};
+        <span class="hljs-built_in">int</span>[] colOffset = {<span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-number">0</span>,<span class="hljs-number">-1</span>};
+
+        <span class="hljs-keyword">for</span>(<span class="hljs-built_in">int</span> i=<span class="hljs-number">0</span>; i&lt;<span class="hljs-number">4</span>; ++i)
+        {
+            <span class="hljs-built_in">int</span> newRow = row+rowOffset[i];
+            <span class="hljs-built_in">int</span> newCol = col + colOffset[i];
+            <span class="hljs-keyword">if</span>(newRow &lt; <span class="hljs-number">0</span> || newRow &gt;= board.Length || newCol &lt; <span class="hljs-number">0</span> || newCol &gt;= board[<span class="hljs-number">0</span>].Length)
+            {
+                <span class="hljs-keyword">continue</span>;
+            }
+            <span class="hljs-keyword">if</span>(curNode.children.ContainsKey(board[newRow][newCol]))
+            {
+                backtracking(newRow, newCol, curNode);
+            }
+        }
+        board[row][col] = letter;
+
+        <span class="hljs-keyword">if</span>(curNode.children.Count == <span class="hljs-number">0</span>)
+        {
+            parent.children.Remove(letter);
+        }
+    }
+}
+</code></pre>
+<h2 id="wildcard-matching">Wildcard Matching</h2>
+<p><a href="https://leetcode.com/explore/interview/card/microsoft/46/backtracking/155/">155</a></p>
+<pre><code class="language-C#"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> {
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-built_in">bool</span> <span class="hljs-title">IsMatch</span>(<span class="hljs-params"><span class="hljs-built_in">string</span> s, <span class="hljs-built_in">string</span> p</span>)</span> {
+        <span class="hljs-built_in">int</span> sLen = s.Length;
+        <span class="hljs-built_in">int</span> pLen = p.Length;
+        <span class="hljs-built_in">int</span> sIdx = <span class="hljs-number">0</span>;
+        <span class="hljs-built_in">int</span> pIdx = <span class="hljs-number">0</span>;
+        <span class="hljs-built_in">int</span> starIdx = <span class="hljs-number">-1</span>;
+        <span class="hljs-built_in">int</span> sTmpIdx = <span class="hljs-number">-1</span>;
+        <span class="hljs-keyword">while</span> (sIdx &lt; sLen)
+        {
+            <span class="hljs-keyword">if</span>(pIdx&lt;pLen &amp;&amp; (p[pIdx]==<span class="hljs-string">&#x27;?&#x27;</span> || p[pIdx] == s[sIdx]))
+            {
+                sIdx++;
+                pIdx++;
+            }
+            <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (pIdx &lt; pLen &amp;&amp; p[pIdx] == <span class="hljs-string">&#x27;*&#x27;</span>)
+            {
+                starIdx = pIdx;
+                sTmpIdx = sIdx;
+                ++pIdx;
+            }
+            <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (starIdx == <span class="hljs-number">-1</span>)
+            {
+                <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+            }
+            <span class="hljs-keyword">else</span>
+            {
+                pIdx = starIdx + <span class="hljs-number">1</span>;
+                sIdx = sTmpIdx + <span class="hljs-number">1</span>;
+                sTmpIdx = sIdx;
+            }
+        }
+
+        <span class="hljs-keyword">for</span> (<span class="hljs-built_in">int</span> i =pIdx; i&lt;pLen; i++)
+        {
+            <span class="hljs-keyword">if</span>(p[i] != <span class="hljs-string">&#x27;*&#x27;</span>)
+            {
+                <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+            }
+        }
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+    }
+}
+</code></pre>
+<ul class="contains-task-list">
+<li class="task-list-item enabled"><input class="task-list-item-checkbox"type="checkbox"> Regular Expression Matching <a href="https://leetcode.com/explore/interview/card/microsoft/46/backtracking/189/">189</a></li>
+</ul>
+<h1 id="sorting-and-searching">Sorting and Searching</h1>
+<h2 id="remove-duplicates-from-sorted-array">Remove Duplicates from Sorted Array</h2>
+<p><a href="https://leetcode.com/explore/interview/card/microsoft/47/sorting-and-searching/257/">257</a></p>
+<pre><code class="language-C#"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> {
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-built_in">int</span> <span class="hljs-title">RemoveDuplicates</span>(<span class="hljs-params"><span class="hljs-built_in">int</span>[] nums</span>)</span> {
+        <span class="hljs-built_in">int</span> insertIndex = <span class="hljs-number">1</span>;
+
+        <span class="hljs-keyword">for</span>(<span class="hljs-built_in">int</span> i=<span class="hljs-number">1</span>; i&lt;nums.Length; i++)
+        {
+            <span class="hljs-keyword">if</span>(nums[i<span class="hljs-number">-1</span>]!= nums[i])
+            {
+                nums[insertIndex] = nums[i];
+                insertIndex++;
+            }
+        }
+        <span class="hljs-keyword">return</span> insertIndex;
+    }
+}
+</code></pre>
+<ul class="contains-task-list">
+<li class="task-list-item enabled"><input class="task-list-item-checkbox"type="checkbox"> Merge Sorted Array <a href="https://leetcode.com/explore/interview/card/microsoft/47/sorting-and-searching/258/">258</a></li>
+<li class="task-list-item enabled"><input class="task-list-item-checkbox"type="checkbox"> Sort Colors <a href="https://leetcode.com/explore/interview/card/microsoft/47/sorting-and-searching/193/">text</a></li>
+</ul>
+<h2 id="find-minimum-in-rotated-sorted-array">Find Minimum in Rotated Sorted Array</h2>
+<p><a href="https://leetcode.com/explore/interview/card/microsoft/47/sorting-and-searching/206/">206</a></p>
+<pre><code class="language-C#"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> {
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-built_in">int</span> <span class="hljs-title">FindMin</span>(<span class="hljs-params"><span class="hljs-built_in">int</span>[] nums</span>)</span> {
+        <span class="hljs-built_in">int</span> left=<span class="hljs-number">0</span>, right=nums.Length<span class="hljs-number">-1</span>, mid=<span class="hljs-number">0</span>;
+        <span class="hljs-keyword">while</span>(left &lt; right)
+        {
+            mid = (left + right) /<span class="hljs-number">2</span>;
+            <span class="hljs-keyword">if</span>(nums[mid] &gt; nums[right])
+            {
+                left = mid + <span class="hljs-number">1</span>;
+            }
+            <span class="hljs-keyword">else</span>
+            {
+                right = mid;
+            }
+        }
+        <span class="hljs-keyword">return</span> nums[left];
+    }
+}
+</code></pre>
+<h2 id="find-minimum-in-rotated-sorted-array-ii">Find Minimum in Rotated Sorted Array II</h2>
+<p><a href="https://leetcode.com/explore/interview/card/microsoft/47/sorting-and-searching/207/">207</a></p>
+<pre><code class="language-C#"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> {
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-built_in">int</span> <span class="hljs-title">FindMin</span>(<span class="hljs-params"><span class="hljs-built_in">int</span>[] nums</span>)</span> {
+        <span class="hljs-built_in">int</span> left=<span class="hljs-number">0</span>, right=nums.Length<span class="hljs-number">-1</span>;
+        <span class="hljs-keyword">while</span>(left &lt; right)
+        {
+            <span class="hljs-built_in">int</span> mid = left + (right-left) /<span class="hljs-number">2</span>;
+            <span class="hljs-keyword">if</span>(nums[mid] &lt; nums[right])
+            {
+                right = mid;
+            }
+            <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(nums[mid]&gt;nums[right])
+            {
+                left = mid+<span class="hljs-number">1</span>;
+            }
+            <span class="hljs-keyword">else</span>{
+                right--;
+            }
+        }
+        <span class="hljs-keyword">return</span> nums[left];
+    }
+}
+</code></pre>
+<ul class="contains-task-list">
+<li class="task-list-item enabled"><input class="task-list-item-checkbox"type="checkbox"> Search in Rotated Sorted Array <a href="https://leetcode.com/explore/interview/card/microsoft/47/sorting-and-searching/191/">191</a></li>
+<li class="task-list-item enabled"><input class="task-list-item-checkbox"type="checkbox">  Search a 2D Matrix <a href="https://leetcode.com/explore/interview/card/microsoft/47/sorting-and-searching/154/">154</a></li>
+<li class="task-list-item enabled"><input class="task-list-item-checkbox"type="checkbox">  Search a 2D Matrix II <a href="https://leetcode.com/explore/interview/card/microsoft/47/sorting-and-searching/195/">195</a></li>
+<li class="task-list-item enabled"><input class="task-list-item-checkbox"type="checkbox">  Median of Two Sorted Arrays <a href="https://leetcode.com/explore/interview/card/microsoft/47/sorting-and-searching/890/">890</a></li>
+</ul>
+<h1 id="dynamic-programming">Dynamic programming</h1>
+<h2 id="best-time-to-buy-and-sell-stock">Best Time to Buy and Sell Stock</h2>
+<p><a href="https://leetcode.com/explore/interview/card/microsoft/49/dynamic-programming/186/">186</a></p>
+<pre><code class="language-C#"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> {
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-built_in">int</span> <span class="hljs-title">MaxProfit</span>(<span class="hljs-params"><span class="hljs-built_in">int</span>[] prices</span>)</span> {
+        <span class="hljs-built_in">int</span> min = Int32.MaxValue;
+        <span class="hljs-built_in">int</span> profit  = <span class="hljs-number">0</span>; 
+        <span class="hljs-keyword">for</span>(<span class="hljs-built_in">int</span> i = <span class="hljs-number">0</span>; i&lt; prices.Length; i++)
+        {
+            <span class="hljs-keyword">if</span>(prices[i] &lt; min)
+            {
+                min = prices[i];
+            }
+            <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(prices[i]-min &gt; profit)
+            {
+                profit = prices[i] - min;
+            }
+        }
+        <span class="hljs-keyword">return</span> profit;
+    }
+}
+</code></pre>
+<ul class="contains-task-list">
+<li class="task-list-item enabled"><input class="task-list-item-checkbox"type="checkbox"> Maximum Subarray <a href="https://leetcode.com/explore/interview/card/microsoft/49/dynamic-programming/174/">174</a></li>
+</ul>
+<h2 id="longest-increasing-subsequence">Longest Increasing Subsequence</h2>
+<p><a href="https://leetcode.com/explore/interview/card/microsoft/49/dynamic-programming/156/">156</a></p>
+<pre><code class="language-C#"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> {
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-built_in">int</span> <span class="hljs-title">LengthOfLIS</span>(<span class="hljs-params"><span class="hljs-built_in">int</span>[] nums</span>)</span> {
+        <span class="hljs-built_in">int</span> len = <span class="hljs-number">0</span>;
+        <span class="hljs-built_in">int</span>[] tails = <span class="hljs-keyword">new</span> <span class="hljs-built_in">int</span>[nums.Length];
+
+        <span class="hljs-keyword">foreach</span> (<span class="hljs-built_in">int</span> num <span class="hljs-keyword">in</span> nums) {
+            <span class="hljs-built_in">int</span> left = <span class="hljs-number">0</span>, right = len;
+            
+            <span class="hljs-keyword">while</span> (left &lt; right) {
+                <span class="hljs-built_in">int</span> mid = left + (right - left) / <span class="hljs-number">2</span>;
+                <span class="hljs-keyword">if</span> (tails[mid] &lt; num) {
+                    left = mid + <span class="hljs-number">1</span>;
+                } <span class="hljs-keyword">else</span> {
+                    right = mid;
+                }
+            }
+            
+            tails[left] = num;
+            <span class="hljs-keyword">if</span> (left == len) {
+                len++;
+            }
+        }
+        
+        <span class="hljs-keyword">return</span> len;
+    }
+}
+</code></pre>
+<h1 id="design">Design</h1>
+<ul class="contains-task-list">
+<li class="task-list-item enabled"><input class="task-list-item-checkbox"type="checkbox"> Serialize and Deserialize BST <a href="https://leetcode.com/explore/interview/card/microsoft/51/design/891/">891</a></li>
+<li class="task-list-item enabled"><input class="task-list-item-checkbox"type="checkbox"> Serialize and Deserialize Binary Tree <a href="https://leetcode.com/explore/interview/card/microsoft/51/design/201/">201</a></li>
+<li class="task-list-item enabled"><input class="task-list-item-checkbox"type="checkbox"> Implement Trie (Prefix Tree) <a href="https://leetcode.com/explore/interview/card/microsoft/51/design/892/">892</a></li>
+</ul>
+<h2 id="lru-cache">LRU Cache</h2>
+<p><a href="https://leetcode.com/explore/interview/card/microsoft/51/design/161/">161</a></p>
+<pre><code class="language-C#"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">LRUCache</span> {
+    
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">LruListNode</span> 
+    {
+        <span class="hljs-keyword">public</span> <span class="hljs-built_in">int</span> key;
+        <span class="hljs-keyword">public</span> <span class="hljs-built_in">int</span> <span class="hljs-keyword">value</span>;
+        <span class="hljs-keyword">public</span> LruListNode next;
+        <span class="hljs-keyword">public</span> LruListNode prev;
+
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">LruListNode</span>(<span class="hljs-params"><span class="hljs-built_in">int</span> key, <span class="hljs-built_in">int</span> <span class="hljs-keyword">value</span></span>)</span>
+        {
+            <span class="hljs-keyword">this</span>.key = key;
+            <span class="hljs-keyword">this</span>.<span class="hljs-keyword">value</span> = <span class="hljs-keyword">value</span>;
+        }
+    }
+
+    <span class="hljs-built_in">int</span> capacity;
+    Dictionary&lt;<span class="hljs-built_in">int</span>, LruListNode&gt; dic;
+    LruListNode head;
+    LruListNode tail;
+
+    
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">LRUCache</span>(<span class="hljs-params"><span class="hljs-built_in">int</span> capacity</span>)</span> {
+        <span class="hljs-keyword">this</span>.capacity = capacity;
+        dic = <span class="hljs-keyword">new</span> Dictionary&lt;<span class="hljs-built_in">int</span>,LruListNode&gt;();
+        head = <span class="hljs-keyword">new</span> LruListNode(<span class="hljs-number">-1</span>,<span class="hljs-number">-1</span>);
+        tail = <span class="hljs-keyword">new</span> LruListNode(<span class="hljs-number">-1</span>,<span class="hljs-number">-1</span>);
+        head.next = tail;
+        tail.prev = head;
+    }
+    
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-built_in">int</span> <span class="hljs-title">Get</span>(<span class="hljs-params"><span class="hljs-built_in">int</span> key</span>)</span> {
+        <span class="hljs-keyword">if</span>(!dic.ContainsKey(key))
+        {
+            <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;
+        }
+
+        LruListNode node = dic[key];
+        <span class="hljs-keyword">remove</span>(node);
+        <span class="hljs-keyword">add</span>(node);
+        <span class="hljs-keyword">return</span> node.<span class="hljs-keyword">value</span>;
+    }
+    
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Put</span>(<span class="hljs-params"><span class="hljs-built_in">int</span> key, <span class="hljs-built_in">int</span> <span class="hljs-keyword">value</span></span>)</span> {
+        <span class="hljs-keyword">if</span>(dic.ContainsKey(key)) {
+            LruListNode oldNode = dic[key];
+            <span class="hljs-keyword">remove</span>(oldNode);
+            dic.Remove(key);
+        }
+
+        LruListNode node = <span class="hljs-keyword">new</span> LruListNode(key,<span class="hljs-keyword">value</span>);
+        dic.Add(key, node);
+        <span class="hljs-keyword">add</span>(node);
+
+        <span class="hljs-keyword">if</span>(dic.Count() &gt; capacity)
+        {
+            LruListNode nodeToDelete = head.next;
+            <span class="hljs-keyword">remove</span>(nodeToDelete);
+            dic.Remove(nodeToDelete.key);
+        }
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">add</span>(<span class="hljs-params">LruListNode node</span>)</span> 
+    {
+        LruListNode previousEnd = tail.prev;
+        previousEnd.next = node;
+        node.prev = previousEnd;
+        node.next = tail;
+        tail.prev = node;
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">remove</span>(<span class="hljs-params">LruListNode node</span>)</span>
+    {
+        node.prev.next = node.next;
+        node.next.prev = node.prev;
+    }
+}
+
+<span class="hljs-comment">/**
+ * Your LRUCache object will be instantiated and called as such:
+ * LRUCache obj = new LRUCache(capacity);
+ * int param_1 = obj.Get(key);
+ * obj.Put(key,value);
+ */</span>
+</code></pre>
+<h1 id="other">Other</h1>
+<ul class="contains-task-list">
+<li class="task-list-item enabled"><input class="task-list-item-checkbox"type="checkbox"> Single Number <a href="https://leetcode.com/explore/interview/card/microsoft/48/others/208/">208</a></li>
+<li class="task-list-item enabled"><input class="task-list-item-checkbox"type="checkbox"> Roman to Integer <a href="https://leetcode.com/explore/interview/card/microsoft/48/others/198/">198</a></li>
+<li class="task-list-item enabled"><input class="task-list-item-checkbox"type="checkbox"> Excel Sheet Column Number <a href="https://leetcode.com/explore/interview/card/microsoft/48/others/183/">183</a></li>
+<li class="task-list-item enabled"><input class="task-list-item-checkbox"type="checkbox"> Find the Celebrity <a href="https://leetcode.com/explore/interview/card/microsoft/48/others/194/">194</a></li>
+<li class="task-list-item enabled"><input class="task-list-item-checkbox"type="checkbox"> Integer to English Words <a href="https://leetcode.com/explore/interview/card/microsoft/48/others/188/">188</a></li>
+<li class="task-list-item enabled"><input class="task-list-item-checkbox"type="checkbox"> The Skyline Problem <a href="https://leetcode.com/explore/interview/card/microsoft/48/others/157/">157</a></li>
+</ul>
 
             
             

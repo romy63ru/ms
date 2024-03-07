@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>Array and Strings</title>
+            <style>
+/* From extension vscode.github */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+.vscode-dark img[src$=\#gh-light-mode-only],
+.vscode-light img[src$=\#gh-dark-mode-only],
+.vscode-high-contrast:not(.vscode-high-contrast-light) img[src$=\#gh-light-mode-only],
+.vscode-high-contrast-light img[src$=\#gh-dark-mode-only] {
+	display: none;
+}
+
+</style>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+<link href="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item {
+    list-style-type: none;
+}
+
+.task-list-item-checkbox {
+    margin-left: -20px;
+    vertical-align: middle;
+    pointer-events: none;
+}
+</style>
+<style>
+:root {
+  --color-note: #0969da;
+  --color-tip: #1a7f37;
+  --color-warning: #9a6700;
+  --color-severe: #bc4c00;
+  --color-caution: #d1242f;
+  --color-important: #8250df;
+}
+
+</style>
+<style>
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-note: #2f81f7;
+    --color-tip: #3fb950;
+    --color-warning: #d29922;
+    --color-severe: #db6d28;
+    --color-caution: #f85149;
+    --color-important: #a371f7;
+  }
+}
+
+</style>
+<style>
+.markdown-alert {
+  padding: 0.5rem 1rem;
+  margin-bottom: 16px;
+  color: inherit;
+  border-left: .25em solid #888;
+}
+
+.markdown-alert>:first-child {
+  margin-top: 0
+}
+
+.markdown-alert>:last-child {
+  margin-bottom: 0
+}
+
+.markdown-alert .markdown-alert-title {
+  display: flex;
+  font-weight: 500;
+  align-items: center;
+  line-height: 1
+}
+
+.markdown-alert .markdown-alert-title .octicon {
+  margin-right: 0.5rem;
+  display: inline-block;
+  overflow: visible !important;
+  vertical-align: text-bottom;
+  fill: currentColor;
+}
+
+.markdown-alert.markdown-alert-note {
+  border-left-color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-note .markdown-alert-title {
+  color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-important {
+  border-left-color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-important .markdown-alert-title {
+  color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-warning {
+  border-left-color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-warning .markdown-alert-title {
+  color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-tip {
+  border-left-color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-tip .markdown-alert-title {
+  color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-caution {
+  border-left-color: var(--color-caution);
+}
+
+.markdown-alert.markdown-alert-caution .markdown-alert-title {
+  color: var(--color-caution);
+}
+
+</style>
+        
+        </head>
+        <body class="vscode-body vscode-light">
+            <h1 id="array-and-strings">Array and Strings</h1>
+<p><code>ArrayList()</code>
+Read O(1) Insert O(1)</p>
+<p><code>StringBuilder()</code></p>
+<p><code>Dictionary(Hash)</code>
+O(1) but lot of collision O(N)</p>
+<h2 id="two-sum-173">Two Sum <a href="https://leetcode.com/explore/interview/card/microsoft/30/array-and-strings/173/">173</a></h2>
+<p>Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.
+You may assume that each input would have exactly one solution, and you may not use the same element twice.
+You can return the answer in any order.</p>
+<h3 id="example-1">Example 1</h3>
+<pre><code>Input: nums = [2,7,11,15], target = 9
+Output: [0,1]
+Explanation: Because nums[0] + nums[1] == 9, we return [0, 1].
+</code></pre>
+<h3 id="example-2">Example 2</h3>
+<pre><code>Input: nums = [3,2,4], target = 6
+Output: [1,2]
+</code></pre>
+<h3 id="example-3">Example 3</h3>
+<pre><code>Input: nums = [3,3], target = 6
+Output: [0,1]
+</code></pre>
+<h3 id="constraints">Constraints</h3>
+<pre><code>2 &lt;= nums.length &lt;= 104
+-109 &lt;= nums[i] &lt;= 109
+-109 &lt;= target &lt;= 109
+Only one valid answer exists.
+</code></pre>
+<blockquote>
+<p>Follow-up: Can you come up with an algorithm that is less than O(n2) time complexity?</p>
+</blockquote>
+<pre><code class="language-C#"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> {
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-built_in">int</span>[] <span class="hljs-title">TwoSum</span>(<span class="hljs-params"><span class="hljs-built_in">int</span>[] nums, <span class="hljs-built_in">int</span> target</span>)</span> {
+        Dictionary&lt;<span class="hljs-built_in">int</span>, <span class="hljs-built_in">int</span>&gt; map = <span class="hljs-keyword">new</span> Dictionary&lt;<span class="hljs-built_in">int</span>,<span class="hljs-built_in">int</span>&gt;();
+        <span class="hljs-keyword">for</span>(<span class="hljs-built_in">int</span> i =<span class="hljs-number">0</span>; i &lt; nums.Length; i++)
+        {
+            <span class="hljs-built_in">int</span> completment = target - nums[i];
+            <span class="hljs-keyword">if</span>(map.ContainsKey(completment))
+            {
+                <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">int</span>[] {map[completment], i};
+            }
+            map[nums[i]] = i;
+        }
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;
+    }
+}
+</code></pre>
+<blockquote>
+<p>Time O(N), Space O(N)</p>
+</blockquote>
+<p><a href="https://leetcode.com/problems/two-sum/editorial/">Solution</a></p>
+<h2 id="valid-palindrome-162">Valid Palindrome <a href="https://leetcode.com/explore/interview/card/microsoft/30/array-and-strings/162/">162</a></h2>
+<p>A phrase is a palindrome if, after converting all uppercase letters into lowercase letters and removing all non-alphanumeric characters, it reads the same forward and backward. Alphanumeric characters include letters and numbers.</p>
+<p>Given a string s, return true if it is a palindrome, or false otherwise.</p>
+<pre><code class="language-C#"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> {
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-built_in">bool</span> <span class="hljs-title">IsPalindrome</span>(<span class="hljs-params"><span class="hljs-built_in">string</span> s</span>)</span>
+    {
+        <span class="hljs-keyword">if</span> (s == <span class="hljs-string">&quot; &quot;</span>) <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+        <span class="hljs-built_in">string</span> normStr = <span class="hljs-string">&quot;&quot;</span>;
+        <span class="hljs-keyword">foreach</span> (<span class="hljs-keyword">var</span> ch <span class="hljs-keyword">in</span> s)
+        {
+            <span class="hljs-keyword">if</span> (<span class="hljs-built_in">char</span>.IsLetterOrDigit(ch))
+            {
+                normStr += <span class="hljs-built_in">char</span>.ToLower(ch);
+            }
+        }
+        <span class="hljs-keyword">if</span> (normStr == <span class="hljs-string">&quot;&quot;</span>) <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+        <span class="hljs-built_in">int</span> j = normStr.Length - <span class="hljs-number">1</span>;
+        <span class="hljs-keyword">for</span> (<span class="hljs-built_in">int</span> i = <span class="hljs-number">0</span>; i &lt; normStr.Length / <span class="hljs-number">2</span> + <span class="hljs-number">1</span>; i++)
+        {
+            <span class="hljs-keyword">if</span> (normStr[i] != normStr[j])
+            {
+                <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+            }
+            j--;
+        }
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+    }
+}
+</code></pre>
+<blockquote>
+<p>Time O(N), Space O(N)</p>
+</blockquote>
+<p><a href="https://leetcode.com/problems/valid-palindrome/editorial/">Solution</a></p>
+<h2 id="string-to-integer-atoi-171">String to Integer (atoi) <a href="https://leetcode.com/explore/interview/card/microsoft/30/array-and-strings/171/">171</a></h2>
+<p>Implement the myAtoi(string s) function, which converts a string to a 32-bit signed integer (similar to C/C++'s atoi function).</p>
+<p>The algorithm for myAtoi(string s) is as follows:</p>
+<ol>
+<li>Read in and ignore any leading whitespace.</li>
+<li>Check if the next character (if not already at the end of the string) is '-' or '+'. Read this character in if it is either. This determines if the final result is negative or positive respectively. Assume the result is positive if neither is present.</li>
+<li>Read in next the characters until the next non-digit character or the end of the input is reached. The rest of the string is ignored.</li>
+<li>Convert these digits into an integer (i.e. &quot;123&quot; -&gt; 123, &quot;0032&quot; -&gt; 32). If no digits were read, then the integer is 0. Change the sign as necessary (from step 2).</li>
+<li>If the integer is out of the 32-bit signed integer range [-231, 231 - 1], then clamp the integer so that it remains in the range. Specifically, integers less than -231 should be clamped to -231, and integers greater than 231 - 1 should be clamped to 231 - 1.</li>
+<li>Return the integer as the final result.</li>
+</ol>
+<pre><code class="language-C#"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> {
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-built_in">int</span> <span class="hljs-title">MyAtoi</span>(<span class="hljs-params"><span class="hljs-built_in">string</span> s</span>)</span> 
+    {
+        <span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">while</span> (i &lt; s.Length &amp;&amp; s[i] <span class="hljs-keyword">is</span> <span class="hljs-string">&#x27; &#x27;</span>) i++;
+        <span class="hljs-keyword">var</span> negative = <span class="hljs-literal">false</span>;
+        <span class="hljs-keyword">if</span> (i &lt; s.Length &amp;&amp; s[i] <span class="hljs-keyword">is</span> <span class="hljs-string">&#x27;-&#x27;</span> <span class="hljs-keyword">or</span> <span class="hljs-string">&#x27;+&#x27;</span>)
+        {
+            negative = s[i++] == <span class="hljs-string">&#x27;-&#x27;</span>;
+        }
+        <span class="hljs-built_in">int</span> <span class="hljs-keyword">value</span> = <span class="hljs-number">0</span>;
+
+        <span class="hljs-keyword">while</span> (i &lt; s.Length &amp;&amp; <span class="hljs-built_in">char</span>.IsDigit(s[i])) 
+        {
+            <span class="hljs-keyword">const</span> <span class="hljs-built_in">int</span> BASE = <span class="hljs-number">10</span>;
+            <span class="hljs-keyword">var</span> append = s[i++] - <span class="hljs-string">&#x27;0&#x27;</span>;
+            <span class="hljs-keyword">try</span> {
+                checked {
+                    <span class="hljs-keyword">value</span> *= BASE;
+                    <span class="hljs-keyword">if</span> (negative) <span class="hljs-keyword">value</span> -= append;
+                    <span class="hljs-keyword">else</span> <span class="hljs-keyword">value</span> += append;
+                }
+            } <span class="hljs-keyword">catch</span> (OverflowException) {
+                <span class="hljs-keyword">value</span> = negative ? <span class="hljs-built_in">int</span>.MinValue : <span class="hljs-built_in">int</span>.MaxValue;
+                <span class="hljs-keyword">break</span>;
+            }
+        }
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">value</span>;
+    }
+}
+</code></pre>
+<blockquote>
+<p>Time O(N), Space O(1)</p>
+</blockquote>
+<p><a href="https://leetcode.com/problems/string-to-integer-atoi/editorial/">Solution</a></p>
+<h2 id="reverse-string-187">Reverse String <a href="https://leetcode.com/explore/interview/card/microsoft/30/array-and-strings/187/">187</a></h2>
+<p>Write a function that reverses a string. The input string is given as an array of characters s.
+You must do this by modifying the input array in-place with O(1) extra memory.</p>
+<h3 id="example-1-1">Example 1</h3>
+<pre><code>Input: s = [&quot;h&quot;,&quot;e&quot;,&quot;l&quot;,&quot;l&quot;,&quot;o&quot;]
+Output: [&quot;o&quot;,&quot;l&quot;,&quot;l&quot;,&quot;e&quot;,&quot;h&quot;]
+</code></pre>
+<h3 id="example-2-1">Example 2</h3>
+<pre><code>Input: s = [&quot;H&quot;,&quot;a&quot;,&quot;n&quot;,&quot;n&quot;,&quot;a&quot;,&quot;h&quot;]
+Output: [&quot;h&quot;,&quot;a&quot;,&quot;n&quot;,&quot;n&quot;,&quot;a&quot;,&quot;H&quot;]
+</code></pre>
+<h3 id="constraints-1">Constraints</h3>
+<pre><code>1 &lt;= s.length &lt;= 105
+s[i] is a printable ascii character.
+</code></pre>
+<pre><code class="language-C#"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> {
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">ReverseString</span>(<span class="hljs-params"><span class="hljs-built_in">char</span>[] s</span>)</span> {
+        <span class="hljs-built_in">int</span> i = <span class="hljs-number">0</span>;
+        <span class="hljs-built_in">int</span> j = s.Length<span class="hljs-number">-1</span>;
+        <span class="hljs-built_in">char</span> tmp = <span class="hljs-string">&#x27; &#x27;</span>;
+        <span class="hljs-keyword">while</span>(i &lt; j)
+        {
+            tmp = s[j];
+            s[j] = s[i];
+            s[i] = tmp;
+            i++;
+            j--;
+        }
+    }
+}
+</code></pre>
+<blockquote>
+<p>Time O(N), Space O(1)</p>
+</blockquote>
+<p><a href="https://leetcode.com/problems/reverse-string/editorial/">Solution</a></p>
+<h2 id="reverse-words-in-a-string-166">Reverse Words in a String <a href="https://leetcode.com/explore/interview/card/microsoft/30/array-and-strings/166/">166</a></h2>
+<p>Given an input string s, reverse the order of the words.
+A word is defined as a sequence of non-space characters. The words in s will be separated by at least one space.
+Return a string of the words in reverse order concatenated by a single space.
+Note that s may contain leading or trailing spaces or multiple spaces between two words. The returned string should only have a single space separating the words. Do not include any extra spaces.</p>
+<h3 id="example-1-2">Example 1</h3>
+<pre><code>Input: s = &quot;the sky is blue&quot;
+Output: &quot;blue is sky the&quot;
+</code></pre>
+<h3 id="example-2-2">Example 2</h3>
+<pre><code>Input: s = &quot;  hello world  &quot;
+Output: &quot;world hello&quot;
+Explanation: Your reversed string should not contain leading or trailing spaces.
+</code></pre>
+<h3 id="example-3-1">Example 3</h3>
+<pre><code>Input: s = &quot;a good   example&quot;
+Output: &quot;example good a&quot;
+Explanation: You need to reduce multiple spaces between two words to a single space in the reversed string.
+</code></pre>
+<h3 id="constraints-2">Constraints</h3>
+<pre><code>1 &lt;= s.length &lt;= 104
+s contains English letters (upper-case and lower-case), digits, and spaces ' '.
+There is at least one word in s.
+</code></pre>
+<blockquote>
+<p>Follow-up: If the string data type is mutable in your language, can you solve it in-place with O(1) extra space?
+<strong>Approach 2: Reverse the Whole String and Then Reverse Each Word (with submethods)</strong></p>
+</blockquote>
+<pre><code class="language-C#"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> {
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-built_in">string</span> <span class="hljs-title">ReverseWords</span>(<span class="hljs-params"><span class="hljs-built_in">string</span> s</span>)</span> {
+        List&lt;<span class="hljs-built_in">string</span>&gt; map = <span class="hljs-keyword">new</span> List&lt;<span class="hljs-built_in">string</span>&gt;();
+        <span class="hljs-built_in">string</span> tmp = <span class="hljs-string">&quot;&quot;</span>;
+        s.Trim();
+        <span class="hljs-keyword">foreach</span>(<span class="hljs-built_in">char</span> ch <span class="hljs-keyword">in</span> s)
+        {
+            <span class="hljs-keyword">if</span>(Char.IsLetterOrDigit(ch))
+            {
+                tmp += ch;
+            }
+            <span class="hljs-keyword">else</span>
+            {
+                <span class="hljs-keyword">if</span>(!String.IsNullOrEmpty(tmp))
+                {
+                    map.Add(tmp);
+                    tmp = <span class="hljs-string">&quot;&quot;</span>;
+                }
+            }
+        }
+      
+        <span class="hljs-built_in">string</span> result = tmp;
+        <span class="hljs-keyword">for</span>(<span class="hljs-built_in">int</span> i = map.Count<span class="hljs-number">-1</span>; i&gt;=<span class="hljs-number">0</span>; i--)
+        {
+            result += <span class="hljs-string">&quot; &quot;</span> + map[i];
+        }
+        <span class="hljs-keyword">return</span> result.Trim();
+    }
+}
+</code></pre>
+<p><a href="https://leetcode.com/problems/reverse-words-in-a-string/editorial/">Solution</a></p>
+<h2 id="reverse-words-in-a-string-ii-213">Reverse Words in a String II <a href="https://leetcode.com/explore/interview/card/microsoft/30/array-and-strings/213/">213</a></h2>
+<p>Given a character array s, reverse the order of the words.
+A word is defined as a sequence of non-space characters. The words in s will be separated by a single space.
+Your code must solve the problem in-place, i.e. without allocating extra space.</p>
+<h3 id="example-1-3">Example 1:</h3>
+<pre><code>Input: s = [&quot;t&quot;,&quot;h&quot;,&quot;e&quot;,&quot; &quot;,&quot;s&quot;,&quot;k&quot;,&quot;y&quot;,&quot; &quot;,&quot;i&quot;,&quot;s&quot;,&quot; &quot;,&quot;b&quot;,&quot;l&quot;,&quot;u&quot;,&quot;e&quot;]
+Output: [&quot;b&quot;,&quot;l&quot;,&quot;u&quot;,&quot;e&quot;,&quot; &quot;,&quot;i&quot;,&quot;s&quot;,&quot; &quot;,&quot;s&quot;,&quot;k&quot;,&quot;y&quot;,&quot; &quot;,&quot;t&quot;,&quot;h&quot;,&quot;e&quot;]
+</code></pre>
+<h3 id="example-2-3">Example 2:</h3>
+<pre><code>Input: s = [&quot;a&quot;]
+Output: [&quot;a&quot;]
+</code></pre>
+<h3 id="constraints-3">Constraints:</h3>
+<pre><code>1 &lt;= s.length &lt;= 105
+s[i] is an English letter (uppercase or lowercase), digit, or space ' '.
+There is at least one word in s.
+s does not contain leading or trailing spaces.
+All the words in s are guaranteed to be separated by a single space.
+</code></pre>
+<pre><code class="language-C#"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> {
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-built_in">char</span>[] <span class="hljs-title">ReverseString</span>(<span class="hljs-params"><span class="hljs-built_in">char</span>[] s, <span class="hljs-built_in">int</span> i, <span class="hljs-built_in">int</span> j</span>)</span>
+    {
+        <span class="hljs-built_in">char</span> tmp = <span class="hljs-string">&#x27; &#x27;</span>;
+        <span class="hljs-keyword">while</span>(i&lt;j)
+        {
+            tmp = s[j];
+            s[j] = s[i];
+            s[i] = tmp;
+            i++;
+            j--;
+        }
+        <span class="hljs-keyword">return</span> s;
+    }
+    
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">ReverseWords</span>(<span class="hljs-params"><span class="hljs-built_in">char</span>[] s</span>)</span> {
+        <span class="hljs-built_in">int</span> i = <span class="hljs-number">0</span>;
+        <span class="hljs-built_in">int</span> j = <span class="hljs-number">0</span>;
+        s = ReverseString(s, <span class="hljs-number">0</span>, s.Count()<span class="hljs-number">-1</span>);
+        <span class="hljs-keyword">while</span>(i&lt;s.Count())
+        {
+            <span class="hljs-keyword">while</span>(j&lt;s.Count() &amp;&amp; s[j] != <span class="hljs-string">&#x27; &#x27;</span>)
+            {
+                j++;
+            }
+            s = ReverseString(s, i, j<span class="hljs-number">-1</span>);    
+            j++;
+            i=j;
+        }
+    }
+}
+</code></pre>
+<blockquote>
+<p>Time O(N), Space O(1)</p>
+</blockquote>
+<p><a href="https://leetcode.com/problems/reverse-words-in-a-string-ii/editorial/">Solution</a></p>
+<h2 id="valid-parentheses-179">Valid Parentheses <a href="https://leetcode.com/explore/interview/card/microsoft/30/array-and-strings/179/">179</a></h2>
+<p>Given a string s containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.
+An input string is valid if:</p>
+<ol>
+<li>Open brackets must be closed by the same type of brackets.</li>
+<li>Open brackets must be closed in the correct order.</li>
+<li>Every close bracket has a corresponding open bracket of the same type.</li>
+</ol>
+<h3 id="example-1-4">Example 1:</h3>
+<pre><code>Input: s = &quot;()&quot;
+Output: true
+</code></pre>
+<h3 id="example-2-4">Example 2:</h3>
+<pre><code>Input: s = &quot;()[]{}&quot;
+Output: true
+</code></pre>
+<h1 id="example-3-2">Example 3:</h1>
+<pre><code>Input: s = &quot;(]&quot;
+Output: false
+</code></pre>
+<h3 id="constraints-4">Constraints:</h3>
+<pre><code>1 &lt;= s.length &lt;= 104
+s consists of parentheses only '()[]{}'.
+</code></pre>
+<pre><code class="language-C#"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> {
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-built_in">bool</span> <span class="hljs-title">IsValid</span>(<span class="hljs-params"><span class="hljs-built_in">string</span> s</span>)</span> {
+        Stack&lt;<span class="hljs-built_in">char</span>&gt; temp = <span class="hljs-keyword">new</span> Stack&lt;<span class="hljs-built_in">char</span>&gt; ();
+        <span class="hljs-keyword">for</span>(<span class="hljs-built_in">int</span> i = <span class="hljs-number">0</span>; i&lt;s.Length; i++)
+        {
+            <span class="hljs-keyword">if</span>(s[i] == <span class="hljs-string">&#x27;(&#x27;</span> || s[i] == <span class="hljs-string">&#x27;[&#x27;</span> || s[i] == <span class="hljs-string">&#x27;{&#x27;</span>) temp.Push(s[i]);
+            <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(s[i] == <span class="hljs-string">&#x27;)&#x27;</span> || s[i] == <span class="hljs-string">&#x27;]&#x27;</span> || s[i] == <span class="hljs-string">&#x27;}&#x27;</span>) 
+            {
+                <span class="hljs-keyword">if</span>(temp.Count &gt; <span class="hljs-number">0</span>)
+                {
+                    <span class="hljs-built_in">char</span> t = temp.Peek();
+                    <span class="hljs-keyword">if</span>(t == <span class="hljs-string">&#x27;(&#x27;</span> &amp;&amp; s[i] == <span class="hljs-string">&#x27;)&#x27;</span> || t == <span class="hljs-string">&#x27;[&#x27;</span> &amp;&amp; s[i] == <span class="hljs-string">&#x27;]&#x27;</span> || t == <span class="hljs-string">&#x27;{&#x27;</span> &amp;&amp; s[i] == <span class="hljs-string">&#x27;}&#x27;</span>) temp.Pop();
+                    <span class="hljs-keyword">else</span> <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+                }
+                <span class="hljs-keyword">else</span> <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+            }
+            <span class="hljs-keyword">else</span> <span class="hljs-keyword">continue</span>;
+        }
+        <span class="hljs-keyword">if</span>(temp.Count == <span class="hljs-number">0</span>) <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+        <span class="hljs-keyword">else</span> <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+    }
+}
+</code></pre>
+<h2 id="longest-palindromic-substring-180">Longest Palindromic Substring <a href="https://leetcode.com/explore/interview/card/microsoft/30/array-and-strings/180/">180</a></h2>
+<p>Given a string s, return the longest palindromic substring in s.</p>
+<h3 id="example-1-5">Example 1:</h3>
+<pre><code>Input: s = &quot;babad&quot;
+Output: &quot;bab&quot;
+Explanation: &quot;aba&quot; is also a valid answer.
+</code></pre>
+<h3 id="example-2-5">Example 2:</h3>
+<pre><code>Input: s = &quot;cbbd&quot;
+Output: &quot;bb&quot;
+</code></pre>
+<h3 id="constraints-5">Constraints:</h3>
+<pre><code>1 &lt;= s.length &lt;= 1000
+s consist of only digits and English letters.
+</code></pre>
+<pre><code class="language-C#"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> {
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-built_in">string</span> <span class="hljs-title">LongestPalindrome</span>(<span class="hljs-params"><span class="hljs-built_in">string</span> s</span>)</span> {
+        <span class="hljs-built_in">string</span> T = <span class="hljs-string">&quot;^#&quot;</span> + <span class="hljs-built_in">string</span>.Join(<span class="hljs-string">&quot;#&quot;</span>, s.ToCharArray()) + <span class="hljs-string">&quot;#$&quot;</span>;
+        <span class="hljs-built_in">int</span> n = T.Length;
+        <span class="hljs-built_in">int</span>[] P = <span class="hljs-keyword">new</span> <span class="hljs-built_in">int</span>[n];
+        <span class="hljs-built_in">int</span> C = <span class="hljs-number">0</span>, R = <span class="hljs-number">0</span>;
+        
+        <span class="hljs-keyword">for</span> (<span class="hljs-built_in">int</span> i = <span class="hljs-number">1</span>; i &lt; n<span class="hljs-number">-1</span>; i++) {
+            P[i] = (R &gt; i) ? Math.Min(R - i, P[<span class="hljs-number">2</span>*C - i]) : <span class="hljs-number">0</span>;
+            <span class="hljs-keyword">while</span> (T[i + <span class="hljs-number">1</span> + P[i]] == T[i - <span class="hljs-number">1</span> - P[i]])
+                P[i]++;
+            
+            <span class="hljs-keyword">if</span> (i + P[i] &gt; R) {
+                C = i;
+                R = i + P[i];
+            }
+        }
+        
+        <span class="hljs-built_in">int</span> max_len = P.Max();
+        <span class="hljs-built_in">int</span> center_index = Array.IndexOf(P, max_len);
+        <span class="hljs-keyword">return</span> s.Substring((center_index - max_len) / <span class="hljs-number">2</span>, max_len);
+    }
+}
+</code></pre>
+<blockquote>
+<p>Time O(N), Space o(N)</p>
+</blockquote>
+<p><a href="https://leetcode.com/problems/longest-palindromic-substring/editorial/">Solution</a></p>
+<h2 id="group-anagrams-200">Group Anagrams <a href="https://leetcode.com/explore/interview/card/microsoft/30/array-and-strings/200/">200</a></h2>
+<p>Given an array of strings strs, group the anagrams together. You can return the answer in any order.
+An Anagram is a word or phrase formed by rearranging the letters of a different word or phrase, typically using all the original letters exactly once.</p>
+<h3 id="example-1-6">Example 1:</h3>
+<pre><code>Input: strs = [&quot;eat&quot;,&quot;tea&quot;,&quot;tan&quot;,&quot;ate&quot;,&quot;nat&quot;,&quot;bat&quot;]
+Output: [[&quot;bat&quot;],[&quot;nat&quot;,&quot;tan&quot;],[&quot;ate&quot;,&quot;eat&quot;,&quot;tea&quot;]]
+</code></pre>
+<h3 id="example-2-6">Example 2:</h3>
+<pre><code>Input: strs = [&quot;&quot;]
+Output: [[&quot;&quot;]]
+</code></pre>
+<h3 id="example-3-3">Example 3:</h3>
+<pre><code>Input: strs = [&quot;a&quot;]
+Output: [[&quot;a&quot;]]
+</code></pre>
+<h3 id="constraints-6">Constraints:</h3>
+<pre><code>1 &lt;= strs.length &lt;= 104
+0 &lt;= strs[i].length &lt;= 100
+strs[i] consists of lowercase English letters.
+</code></pre>
+<pre><code class="language-C#"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> {
+    <span class="hljs-keyword">public</span> IList&lt;IList&lt;<span class="hljs-built_in">string</span>&gt;&gt; GroupAnagrams(<span class="hljs-built_in">string</span>[] strs) {
+        <span class="hljs-keyword">return</span> strs
+            .GroupBy(s =&gt; <span class="hljs-keyword">new</span> <span class="hljs-built_in">string</span>(s.OrderBy(c =&gt; c).ToArray()))
+            .Select(g =&gt; g.ToList() <span class="hljs-keyword">as</span> IList&lt;<span class="hljs-built_in">string</span>&gt;)
+            .ToList();
+    }
+}
+</code></pre>
+<h2 id="trapping-rain-water-211">Trapping Rain Water <a href="https://leetcode.com/explore/interview/card/microsoft/30/array-and-strings/211/">211</a></h2>
+<p>Two pointers</p>
+<pre><code class="language-C#"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> {
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-built_in">int</span> <span class="hljs-title">Trap</span>(<span class="hljs-params"><span class="hljs-built_in">int</span>[] height</span>)</span> {
+        <span class="hljs-built_in">int</span> n = height.Length, left = <span class="hljs-number">0</span>, right = n<span class="hljs-number">-1</span>;
+        <span class="hljs-built_in">int</span> leftMax = <span class="hljs-number">0</span>, rightMax = <span class="hljs-number">0</span>;
+        <span class="hljs-built_in">int</span> ans = <span class="hljs-number">0</span>; 
+
+        <span class="hljs-keyword">while</span>(left&lt;right)
+        {
+            <span class="hljs-keyword">if</span>(height[left]&lt;height[right])
+            {
+                <span class="hljs-keyword">if</span>(leftMax&lt;height[left])
+                {
+                    leftMax = height[left];
+                }
+                <span class="hljs-keyword">else</span>
+                {
+                    ans+= leftMax-height[left];
+                }
+                left++;
+            }
+            <span class="hljs-keyword">else</span>
+            {
+                <span class="hljs-keyword">if</span>(rightMax&lt;height[right])
+                {
+                    rightMax =  height[right];
+                }
+                <span class="hljs-keyword">else</span>
+                {
+                    ans+=rightMax-height[right];
+                }
+                right--;
+            }
+        }
+        <span class="hljs-keyword">return</span> ans;
+    }
+}
+</code></pre>
+<blockquote>
+<p>Time O(N), Space O(1)</p>
+</blockquote>
+<h2 id="set-matrix-zeroes-203">Set Matrix Zeroes <a href="https://leetcode.com/explore/interview/card/microsoft/30/array-and-strings/203/">203</a></h2>
+<pre><code class="language-C#"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> {
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">SetZeroes</span>(<span class="hljs-params"><span class="hljs-built_in">int</span>[][] matrix</span>)</span> 
+    {
+        <span class="hljs-built_in">bool</span> firstRow = <span class="hljs-literal">false</span>, firstCol = <span class="hljs-literal">false</span>;
+        
+        <span class="hljs-keyword">for</span>(<span class="hljs-built_in">int</span> r = <span class="hljs-number">0</span>; r &lt; matrix.Length; r++) {
+            <span class="hljs-keyword">for</span>(<span class="hljs-built_in">int</span> c = <span class="hljs-number">0</span>; c &lt; matrix[<span class="hljs-number">0</span>].Length; c++) 
+            {
+                <span class="hljs-keyword">if</span>(matrix[r][c] == <span class="hljs-number">0</span>) {
+                    <span class="hljs-keyword">if</span>(r == <span class="hljs-number">0</span>) firstRow = <span class="hljs-literal">true</span>; 
+                    <span class="hljs-keyword">if</span>(c == <span class="hljs-number">0</span>) firstCol = <span class="hljs-literal">true</span>; 
+                    matrix[r][<span class="hljs-number">0</span>] = <span class="hljs-number">0</span>; 
+                    matrix[<span class="hljs-number">0</span>][c] = <span class="hljs-number">0</span>;
+                }
+            }
+        }
+
+        <span class="hljs-keyword">for</span>(<span class="hljs-built_in">int</span> r = <span class="hljs-number">1</span>; r &lt; matrix.Length; r++) {
+            <span class="hljs-keyword">for</span>(<span class="hljs-built_in">int</span> c = <span class="hljs-number">1</span>; c &lt; matrix[<span class="hljs-number">0</span>].Length; c++) {
+                <span class="hljs-keyword">if</span>(matrix[r][<span class="hljs-number">0</span>] == <span class="hljs-number">0</span> || matrix[<span class="hljs-number">0</span>][c] == <span class="hljs-number">0</span>) {
+                        matrix[r][c] = <span class="hljs-number">0</span>;
+                }
+            }
+        }   
+
+        <span class="hljs-keyword">if</span>(firstRow) {
+            <span class="hljs-keyword">for</span>(<span class="hljs-built_in">int</span> c = <span class="hljs-number">0</span>; c &lt; matrix[<span class="hljs-number">0</span>].Length; c++) {
+                matrix[<span class="hljs-number">0</span>][c] = <span class="hljs-number">0</span>;
+            }
+        } 
+
+        <span class="hljs-keyword">if</span>(firstCol) {
+            <span class="hljs-keyword">for</span>(<span class="hljs-built_in">int</span> r = <span class="hljs-number">0</span>; r &lt; matrix.Length; r++) {
+                matrix[r][<span class="hljs-number">0</span>] = <span class="hljs-number">0</span>;
+            }
+        }      
+    }
+}
+</code></pre>
+<blockquote>
+<p>Time O(MxN), Space O(1)</p>
+</blockquote>
+<p><a href="https://leetcode.com/problems/set-matrix-zeroes/editorial/">Solution</a></p>
+<h2 id="rotate-image-202">Rotate Image <a href="https://leetcode.com/explore/interview/card/microsoft/30/array-and-strings/202/">202</a></h2>
+<pre><code class="language-C#"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> {
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Rotate</span>(<span class="hljs-params"><span class="hljs-built_in">int</span>[][] matrix</span>)</span> {
+        <span class="hljs-built_in">int</span> n = matrix.Length;
+        <span class="hljs-keyword">for</span>(<span class="hljs-built_in">int</span> i=<span class="hljs-number">0</span>; i&lt;(n+<span class="hljs-number">1</span>)/<span class="hljs-number">2</span>; i++)
+        {
+            <span class="hljs-keyword">for</span>(<span class="hljs-built_in">int</span> j = <span class="hljs-number">0</span>; j &lt; n/<span class="hljs-number">2</span>; j++)
+            {
+                <span class="hljs-built_in">int</span> temp = matrix[n<span class="hljs-number">-1</span>-j][i];
+                matrix[n<span class="hljs-number">-1</span>-j][i] = matrix[n<span class="hljs-number">-1</span>-i][n-j<span class="hljs-number">-1</span>];
+                matrix[n<span class="hljs-number">-1</span>-i][n-j<span class="hljs-number">-1</span>] = matrix[j][n<span class="hljs-number">-1</span>-i];
+                matrix[j][n<span class="hljs-number">-1</span>-i] = matrix[i][j];
+                matrix[i][j] = temp;
+            }
+        }
+    }
+}
+</code></pre>
+<h2 id="spiral-matrix-178">Spiral Matrix <a href="https://leetcode.com/explore/interview/card/microsoft/30/array-and-strings/178/">178</a></h2>
+<pre><code class="language-C#"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> {
+    <span class="hljs-function"><span class="hljs-keyword">public</span> IList&lt;<span class="hljs-built_in">int</span>&gt; <span class="hljs-title">SpiralOrder</span>(<span class="hljs-params"><span class="hljs-built_in">int</span>[][] matrix</span>)</span> {
+        IList&lt;<span class="hljs-built_in">int</span>&gt; res = <span class="hljs-keyword">new</span> List&lt;<span class="hljs-built_in">int</span>&gt;();
+        <span class="hljs-built_in">int</span> top = <span class="hljs-number">0</span>;
+        <span class="hljs-built_in">int</span> left = <span class="hljs-number">0</span>;
+        <span class="hljs-built_in">int</span> right = matrix[<span class="hljs-number">0</span>].Length - <span class="hljs-number">1</span>;
+        <span class="hljs-built_in">int</span> bot = matrix.Length - <span class="hljs-number">1</span>;
+        <span class="hljs-built_in">int</span> elements = matrix.Length * matrix[<span class="hljs-number">0</span>].Length;
+
+        <span class="hljs-keyword">while</span> (res.Count &lt; elements) {
+            <span class="hljs-keyword">for</span> (<span class="hljs-built_in">int</span> i = left; i &lt;= right &amp;&amp; res.Count &lt; elements; i++) {
+                res.Add(matrix[top][i]);
+            }
+            top++;
+            <span class="hljs-keyword">for</span> (<span class="hljs-built_in">int</span> j = top; j &lt;= bot &amp;&amp; res.Count &lt; elements; j++) {
+                res.Add(matrix[j][right]);
+            }
+            right--;
+            <span class="hljs-keyword">for</span> (<span class="hljs-built_in">int</span> i = right; i &gt;= left &amp;&amp; res.Count &lt; elements; i--) {
+                res.Add(matrix[bot][i]);
+            }
+            bot--;
+            <span class="hljs-keyword">for</span> (<span class="hljs-built_in">int</span> i = bot; i &gt;= top &amp;&amp; res.Count &lt; elements; i--) {
+                res.Add(matrix[i][left]);
+            }
+            left++;
+        }
+
+        <span class="hljs-keyword">return</span> res;
+    }
+}
+</code></pre>
+<blockquote>
+<p>Time O(MxN), Space O(1)</p>
+</blockquote>
+
+            <script async src="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.js"></script>
+            
+        </body>
+        </html>
