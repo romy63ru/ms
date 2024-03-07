@@ -1,25 +1,3 @@
-# Data Structure and Algorithms Brief
->Alex Romanov, Saturday 2 March 2024
-
-## Data Structure
-
-
-
-### Stack and Queue
-```C#
-Stack<T>()
-	T Pop()
-	T Peek() 
-	bool Contains(T item)
-	void Push(T item)
-```
-
-```C#
-Queue<T>()
-	void Enqueue(T item)
-	T Dequeue()
-```
-
 
 # Other
 
