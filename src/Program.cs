@@ -43,11 +43,13 @@ namespace src
 
             // var s = new SolutionCoins();
             // var r = s.Change(5, [1,2,5]);
-            var s = new TicTacToe(2);
-            Console.WriteLine(s.Move(0,1,1));
-            Console.WriteLine(s.Move(1,1,2));
-            Console.WriteLine(s.Move(1,0,1));
+            var s = new SolutionMergeKLists();
+            var l1 = new ListNode(1, new ListNode(4, new ListNode(5)));
+            var l2 = new ListNode(1, new ListNode(3, new ListNode(4)));
+            var l3 = new ListNode(2, new ListNode(6));
+            s.MergeKLists([l1, l2, l3]);
 
+//[[1,4,5],[1,3,4],[2,6]]
 
         }
     }
