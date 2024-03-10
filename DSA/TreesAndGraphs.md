@@ -1,9 +1,11 @@
 
 # Trees and Graphs
 
-## Validate Binary Search Tree
+[LeetCode Graphs](https://leetcode.com/explore/learn/card/graph/)
 
-[152](https://leetcode.com/explore/interview/card/microsoft/31/trees-and-graphs/152/)
+[Binary Tree](https://leetcode.com/explore/learn/card/data-structure-tree/)
+
+## Validate Binary Search Tree [152](https://leetcode.com/explore/interview/card/microsoft/31/trees-and-graphs/152/)
 
 Given the root of a binary tree, determine if it is a valid binary search tree (BST).
 
@@ -79,9 +81,7 @@ public class Solution {
 
 [Solution](https://leetcode.com/problems/validate-binary-search-tree/editorial/)
 
-## Binary Tree Inorder Traversal
-
-[153](https://leetcode.com/explore/interview/card/microsoft/31/trees-and-graphs/153/)
+## Binary Tree Inorder Traversal [153](https://leetcode.com/explore/interview/card/microsoft/31/trees-and-graphs/153/)
 
 Given the root of a binary tree, return the inorder traversal of its nodes' values.
 
@@ -105,14 +105,14 @@ Output: []
 
 Input: root = [1]
 Output: [1]
- 
+
 
 ### Constraints:
 
 ```
 The number of nodes in the tree is in the range [0, 100].
 -100 <= Node.val <= 100
-``` 
+```
 
 > Follow up: Recursive solution is trivial, could you do it iteratively?
 
@@ -150,9 +150,7 @@ public class Solution {
 }
 ```
 
-## Binary Tree Level Order Traversal
-
-[164](https://leetcode.com/explore/interview/card/microsoft/31/trees-and-graphs/164/)
+## Binary Tree Level Order Traversal [164](https://leetcode.com/explore/interview/card/microsoft/31/trees-and-graphs/164/)
 
 ```C#
  /**
@@ -171,12 +169,7 @@ public class Solution {
 public class Solution {
     public IList<IList<int>> LevelOrder(TreeNode root)
     {             
-        var result = new List<IList<int>>();
-        if(root == null)
-        {
-            return result;   
-        }
-           
+        var result = new List<IList<int>>();           
         var que = new Queue<TreeNode>();
 
         if(root==null) return result;
@@ -201,7 +194,7 @@ public class Solution {
 }
 ```
 
-## Binary Tree Zigzag Level Order Traversal
+## Binary Tree Zigzag Level Order Traversal [197](https://leetcode.com/explore/interview/card/microsoft/31/trees-and-graphs/197/)
 
 ```C#
 /**
@@ -252,11 +245,111 @@ public class Solution {
 }
 ```
 
-- [ ] Populating Next Right Pointers in Each Node [192](https://leetcode.com/explore/interview/card/microsoft/31/trees-and-graphs/192/)
+## Populating Next Right Pointers in Each Node [192](https://leetcode.com/explore/interview/card/microsoft/31/trees-and-graphs/192/)
 
-## Populating Next Right Pointers in Each Node II
+You are given a perfect binary tree where all leaves are on the same level, and every parent has two children. The binary tree has the following definition:
+```
+struct Node {
+  int val;
+  Node *left;
+  Node *right;
+  Node *next;
+}
+```
+Populate each next pointer to point to its next right node. If there is no next right node, the next pointer should be set to NULL.
 
-[163](https://leetcode.com/explore/interview/card/microsoft/31/trees-and-graphs/163/)
+Initially, all next pointers are set to NULL.
+
+### Example 1:
+
+![alt text](image-1.png)
+
+```
+Input: root = [1,2,3,4,5,6,7]
+Output: [1,#,2,3,#,4,5,6,7,#]
+Explanation: Given the above perfect binary tree (Figure A), your function should populate each next pointer to point to its next right node, just like in Figure B. The serialized output is in level order as connected by the next pointers, with '#' signifying the end of each level.
+```
+
+### Example 2:
+
+```
+Input: root = []
+Output: []
+```
+
+### Constraints:
+
+```
+The number of nodes in the tree is in the range [0, 212 - 1].
+-1000 <= Node.val <= 1000
+```
+
+>Follow-up:
+>
+> You may only use constant extra space.
+>
+>The recursive approach is fine. You may assume implicit stack space does not count as extra space for this problem.
+
+```C#
+/*
+// Definition for a Node.
+public class Node {
+    public int val;
+    public Node left;
+    public Node right;
+    public Node next;
+
+    public Node() {}
+
+    public Node(int _val) {
+        val = _val;
+    }
+
+    public Node(int _val, Node _left, Node _right, Node _next) {
+        val = _val;
+        left = _left;
+        right = _right;
+        next = _next;
+    }
+}
+*/
+
+public class Solution {
+    public Node Connect(Node root) {
+        if(root == null) return root;
+        Queue<Node> que = new Queue<Node>();
+        que.Enqueue(root);
+        while(que.Count > 0)
+        {
+            int size = que.Count;
+            for(int i=0; i < size; i++)
+            {
+                Node node = que.Dequeue();
+                if(i < size - 1)
+                {
+                    node.next = que.Peek();
+                }
+                if(node.left != null)
+                {
+                    que.Enqueue(node.left);
+                }
+                   if(node.right != null)
+                {
+                    que.Enqueue(node.right);
+                }
+            }
+        }
+        return root;
+    }
+}
+```
+
+> O(N), O(N)
+
+[Solution](https://leetcode.com/problems/populating-next-right-pointers-in-each-node/editorial/)
+
+
+## Populating Next Right Pointers in Each Node II [163](https://leetcode.com/explore/interview/card/microsoft/31/trees-and-graphs/163/)
 
 ```C#
 /*
@@ -320,9 +413,7 @@ public class Solution {
 }
 ```
 
-## Lowest Common Ancestor of a Binary Search Tree
-
-[182](https://leetcode.com/explore/interview/card/microsoft/31/trees-and-graphs/182/)
+## Lowest Common Ancestor of a Binary Search Tree [182](https://leetcode.com/explore/interview/card/microsoft/31/trees-and-graphs/182/)
 
 ```C#
 /**
@@ -357,9 +448,7 @@ public class Solution {
 }
 ```
 
-## Lowest Common Ancestor of a Binary Tree
-
-[181](https://leetcode.com/explore/interview/card/microsoft/31/trees-and-graphs/181/)
+## Lowest Common Ancestor of a Binary Tree [181](https://leetcode.com/explore/interview/card/microsoft/31/trees-and-graphs/181/)
 
 ```C#
 /**
@@ -399,12 +488,102 @@ public class Solution {
 }
 ```
 
- - [ ] Construct Binary Tree from Preorder and Inorder Traversal [196](https://leetcode.com/explore/interview/card/microsoft/31/trees-and-graphs/196/)
- - [ ] Number of Islands [185](https://leetcode.com/explore/interview/card/microsoft/31/trees-and-graphs/185/)
+## Construct Binary Tree from Preorder and Inorder Traversal [196](https://leetcode.com/explore/interview/card/microsoft/31/trees-and-graphs/196/)
 
-## Clone Graph
+```C#
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     public int val;
+ *     public TreeNode left;
+ *     public TreeNode right;
+ *     public TreeNode(int val=0, TreeNode left=null, TreeNode right=null) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+public class Solution {
+    int preorderIndex = 0;
+    Dictionary<int, int> inorderIndexMap = new Dictionary<int, int>();
 
-[210](https://leetcode.com/explore/interview/card/microsoft/31/trees-and-graphs/210/)
+    public TreeNode ArrayToTree(int[] preorder, int left, int right)
+    {
+        if(left > right) return null;
+        int rootValue = preorder[preorderIndex++];
+        TreeNode root = new TreeNode(rootValue);
+        root.left = ArrayToTree(preorder, left, inorderIndexMap[rootValue] - 1);
+        root.right = ArrayToTree(preorder, inorderIndexMap[rootValue] + 1, right);
+        return root;
+    }
+
+    public TreeNode BuildTree(int[] preorder, int[] inorder) {
+        for(int i = 0; i < inorder.Length; i++)
+        {
+            inorderIndexMap.Add(inorder[i], i);
+        }
+
+        return ArrayToTree(preorder, 0, preorder.Length - 1);
+    }
+}
+```
+
+> O(N), O(N)
+
+[Solution](https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/editorial/)
+
+## Number of Islands [185](https://leetcode.com/explore/interview/card/microsoft/31/trees-and-graphs/185/)
+
+```C#
+public class Solution {
+    public int NumIslands(char[][] grid) {
+        if (grid == null || grid.Length == 0)
+            return 0;
+
+        int count = 0;
+        int rows = grid.Length;
+        int cols = grid[0].Length;
+
+        // Iterate over each cell in the grid
+        for (int i = 0; i < rows; i++)
+        {
+            for (int j = 0; j < cols; j++)
+            {
+                if (grid[i][j] == '1')
+                {
+                    // Found a land cell, increment count and perform DFS to mark adjacent land cells
+                    count++;
+                    DFS(grid, i, j, rows, cols);
+                }
+            }
+        }
+        return count;
+    }
+
+    // Depth First Search to mark adjacent land cells as visited
+    void DFS(char[][] grid, int i, int j, int rows, int cols)
+    {
+        if (i < 0 || i >= rows || j < 0 || j >= cols || grid[i][j] == '0')
+            return;
+
+        // Mark current cell as visited
+        grid[i][j] = '0';
+
+        // Visit adjacent cells
+        DFS(grid, i + 1, j, rows, cols); // down
+        DFS(grid, i - 1, j, rows, cols); // up
+        DFS(grid, i, j + 1, rows, cols); // right
+        DFS(grid, i, j - 1, rows, cols); // left
+    }
+}
+```
+
+> O(MxN), O(MxN)
+
+[Solution](https://leetcode.com/problems/number-of-islands/editorial/)
+
+## Clone Graph [210](https://leetcode.com/explore/interview/card/microsoft/31/trees-and-graphs/210/)
 
 ```C#
 /*
