@@ -194,4 +194,31 @@ public class Solution {
 }
 ```
 
-- [ ] Regular Expression Matching [189](https://leetcode.com/explore/interview/card/microsoft/46/backtracking/189/)
+## Regular Expression Matching [189](https://leetcode.com/explore/interview/card/microsoft/46/backtracking/189/)
+
+
+```C#
+public class Solution {
+    public bool IsMatch(string s, string p) {
+        if(String.IsNullOrEmpty(p)) 
+        {
+            return String.IsNullOrEmpty(s);
+        }
+
+        bool firstMatch = (!String.IsNullOrEmpty(s) && (p[0] == s[0] 
+            || p[0] == '.'));
+
+        if(p.Length >= 2 && p[1] == '*')
+        {
+            return (IsMatch(s, p.Substring(2)) 
+                || (firstMatch && IsMatch(s.Substring(1), p)));
+        }
+        else
+        {
+            return firstMatch && IsMatch(s.Substring(1), p.Substring(1));
+        }
+    }
+}
+```
+
+> O(T^2 + P^2), O(T^2 + P^2)
